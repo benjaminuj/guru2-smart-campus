@@ -29,22 +29,22 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/idText"
+        app:layout_constraintBottom_toTopOf="@+id/edtId"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
-        android:id="@+id/idText"
+        android:id="@+id/edtId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="70dp"
         android:layout_marginEnd="50dp"
         android:ems="10"
         android:hint="학번"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/pwText"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/edtPwd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/idTv"
@@ -52,23 +52,23 @@
         app:layout_constraintTop_toBottomOf="@+id/titleTv" />
 
     <EditText
-        android:id="@+id/pwText"
+        android:id="@+id/edtPwd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="70dp"
         android:layout_marginEnd="50dp"
         android:ems="10"
         android:hint="비밀번호"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/login2Btn"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/btnLogin2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/pwTv"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idText" />
+        app:layout_constraintTop_toBottomOf="@+id/edtId" />
 
     <Button
-        android:id="@+id/login2Btn"
+        android:id="@+id/btnLogin2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -78,20 +78,20 @@
         app:backgroundTint="#404040"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/loginBtn"
-        app:layout_constraintTop_toBottomOf="@+id/pwText" />
+        app:layout_constraintStart_toEndOf="@+id/btnLogin1"
+        app:layout_constraintTop_toBottomOf="@+id/edtPwd" />
 
     <Button
-        android:id="@+id/loginBtn"
+        android:id="@+id/btnLogin1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="로그인"
         android:textColor="#FFFFFF"
         app:backgroundTint="#404040"
-        app:layout_constraintBottom_toBottomOf="@+id/login2Btn"
-        app:layout_constraintEnd_toStartOf="@+id/login2Btn"
+        app:layout_constraintBottom_toBottomOf="@+id/btnLogin2"
+        app:layout_constraintEnd_toStartOf="@+id/btnLogin2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/login2Btn" />
+        app:layout_constraintTop_toTopOf="@+id/btnLogin2" />
 
     <TextView
         android:id="@+id/idTv"
@@ -101,11 +101,11 @@
         android:text="ID"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/idText"
-        app:layout_constraintEnd_toStartOf="@+id/idText"
+        app:layout_constraintBottom_toBottomOf="@+id/edtId"
+        app:layout_constraintEnd_toStartOf="@+id/edtId"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/idText"
+        app:layout_constraintTop_toTopOf="@+id/edtId"
         app:layout_constraintVertical_bias="0.543" />
 
     <TextView
@@ -115,10 +115,11 @@
         android:text="PASSWORD"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/pwText"
-        app:layout_constraintEnd_toStartOf="@+id/pwText"
+        app:layout_constraintBottom_toBottomOf="@+id/edtPwd"
+        app:layout_constraintEnd_toStartOf="@+id/edtPwd"
         app:layout_constraintHorizontal_bias="0.615"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/pwText" />
+        app:layout_constraintTop_toTopOf="@+id/edtPwd" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
