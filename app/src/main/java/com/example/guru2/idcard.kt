@@ -1,20 +1,45 @@
 package com.example.guru2
 
 import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 
 class idcard : AppCompatActivity() {
 
-    private val paycoPackage = "com.nhnent.payapp" // 페이코 앱의 패키지 주소
-    private val intentPayco = packageManager.getLaunchIntentForPackage(paycoPackage) // 인텐트에 패키지 주소 저장
-
+    lateinit var tvId : TextView
+    lateinit var tvMajor : TextView
+    lateinit var tvName : TextView
+    lateinit var tvDepart : TextView
+    /*
+        private val paycoPackage = "com.nhnent.payapp" // 페이코 앱의 패키지 주소
+        private val intentPayco = packageManager.getLaunchIntentForPackage(paycoPackage) // 인텐트에 패키지 주소 저장
+    */
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTitle(" ")
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_idcard)
+        this.tvDepart = findViewById(R.id.tvDepart)
+        this.tvMajor = findViewById(R.id.tvDepart)
+        this.tvName = findViewById(R.id.tvName)
+        this.tvId = findViewById(R.id.tvDepart)
+
+        var getId = intent.getStringExtra("getId").toString()
+        var getPwd = intent.getStringExtra("getPwd").toString()
+        var getAuth = intent.getStringExtra("getAuth").toString()
+        var getName = intent.getStringExtra("getName").toString()
+        var getDepart = intent.getStringExtra("getDepart").toString()
+        var getMajor = intent.getStringExtra("getMajor").toString()
+
+
+        tvDepart.setText(getDepart)
+        tvMajor.setText(getMajor)
+        tvName.setText(getName)
+        tvId.setText(getId)
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -32,7 +57,7 @@ class idcard : AppCompatActivity() {
                 val intent = Intent(this,access_record::class.java)
                 startActivity(intent)
                 return true
-            }
+            }/*
             R.id.pay -> {
                 try {
                     startActivity(intentPayco) // 페이코 앱을 실행해본다.
@@ -41,7 +66,7 @@ class idcard : AppCompatActivity() {
                     startActivity(intentPlayStore) // 플레이스토어로 이동시켜 설치유도.
                     return true
                 }
-            }
+            }*/
             R.id.Logout-> {
                 val intent = Intent(this,MainActivity::class.java)
                 startActivity(intent)

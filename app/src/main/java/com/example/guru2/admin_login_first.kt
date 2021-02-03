@@ -12,6 +12,7 @@ class admin_login_first : AppCompatActivity() {
     lateinit var btnAttend : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTitle("")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_login_first)
         btnReader = findViewById(R.id.btnReader) //리더기 버튼
@@ -20,6 +21,8 @@ class admin_login_first : AppCompatActivity() {
         var getPwd = intent.getStringExtra("getPwd").toString()
         var getAuth = intent.getStringExtra("getAuth").toString()
         var getName = intent.getStringExtra("getName").toString()
+        var getDepart = intent.getStringExtra("getDepart").toString()
+        var getMajor = intent.getStringExtra("getMajor").toString()
 
 
         //출결확인 버튼
@@ -32,16 +35,17 @@ class admin_login_first : AppCompatActivity() {
                 builder.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
                 })
                 builder.show()
+            }else {
+                var intent = Intent(this, access_record::class.java)
+                intent.putExtra("getId", getId)
+                intent.putExtra("getPwd", getPwd)
+                intent.putExtra("getAuth", getAuth)
+                intent.putExtra("getName", getName)
+                intent.putExtra("getMajor", getMajor)
+                intent.putExtra("getDepart", getDepart)
+                startActivity(intent)
             }
-            /*
-            var intent = Intent(this,액티비티명::class.java)
-            intent.putExtra("getId",getId)
-            intent.putExtra("getPwd",getPwd)
-            intent.putExtra("getAuth",getAuth)
-            intent.putExtra("getName",getName)
-            startActivity(intent)
 
-             */
 
         }
 

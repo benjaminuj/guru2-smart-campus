@@ -24,54 +24,21 @@ class DBHelper(context: Context)
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-        val createTable =
+
+        val createTable_privateinfo =
             "CREATE TABLE $TABLE_NAME" +
-                    "($ID Integer PRIMARY KEY," + "$PASSWORD TEXT,"+
+                    "($ID TEXT PRIMARY KEY," + "$PASSWORD TEXT,"+
                     "$NAME TEXT," + "$AUTH INTEGER," +"$DEPART TEXT," + "$MAJOR TEXT," +"$IMAGE BLOB)"
-        db?.execSQL(createTable)
+        val creatTable_access =
+            "CREATE TABLE access" + "(time TEXT, spot TEXT, id TEXT, name TEXT, auth INTEGER, depart TEXT, major TEXT, image BLOB)"
+
+        db?.execSQL(createTable_privateinfo)
+        db?.execSQL(creatTable_access)
     }
 
-    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {}
-
-
-    fun getAllUser() : String {
-
-        var allUser: String = "";
-        val db = readableDatabase
-        val selectALLQuery = "SELECT * FROM $TABLE_NAME"
-        val cursor = db.rawQuery(selectALLQuery, null)
-        var id : String =""
-        var name :String = ""
-        var password :String= ""
-        var auth : String =""
-        var depart : String =""
-        var major : String =""
-        var image : Blob
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                do {
-                    id = cursor.getString(cursor.getColumnIndex(ID))
-                    name = cursor.getString(cursor.getColumnIndex(NAME))
-                    password = cursor.getString(cursor.getColumnIndex(PASSWORD))
-                    auth = cursor.getString(cursor.getColumnIndex(AUTH))
-                    depart = cursor.getString(cursor.getColumnIndex(DEPART))
-                    major = cursor.getString(cursor.getColumnIndex(MAJOR))
-                    //image = cursor.getBlob(Int)
-
-
-
-                    allUser = "$allUser \n $id $firstName $lastName"
-
-                } while (cursor.moveToNext())
-            }
-        }
-        cursor.close()
-        db.close()
-        return allUser
+    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+        TODO("Not yet implemented")
     }
 
-}
-
-private fun Cursor.getBlob(int: Int.Companion): ByteArray? {
 
 }

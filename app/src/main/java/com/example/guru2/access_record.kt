@@ -14,21 +14,22 @@ import android.widget.*
 import org.w3c.dom.Text
 
 class access_record : AppCompatActivity() {
-
-    private val paycoPackage = "com.nhnent.payapp" // 페이코 앱의 패키지 주소
-    private val intentPayco = packageManager.getLaunchIntentForPackage(paycoPackage) // 인텐트에 패키지 주소 저장
-
+    /*
+        private val paycoPackage = "com.nhnent.payapp" // 페이코 앱의 패키지 주소
+        private val intentPayco = packageManager.getLaunchIntentForPackage(paycoPackage) // 인텐트에 패키지 주소 저장
+    */
     lateinit var layout: LinearLayout
     lateinit var timeResult: TextView
     lateinit var spotResult: TextView
     lateinit var btnSelect: Button
 
-    lateinit var myHelper: myDBHelper
+    lateinit var myHelper: DBHelper
     lateinit var sqlDB: SQLiteDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTitle(" ")
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_access_record)
         setTitle("출입 기록")
 
         // xml 위젯 객체 연결
@@ -37,15 +38,14 @@ class access_record : AppCompatActivity() {
         btnSelect = findViewById(R.id.btnSelect)
 
         // DB 클래스 객체 생성
-        myHelper = myDBHelper(this)
+        myHelper = DBHelper(this)
 
         // 조회 버튼 리스너
         btnSelect.setOnClickListener {
             sqlDB = myHelper.readableDatabase
 
             // 커서 선언, 테이블 조회 후 대입
-            var cursor: Cursor
-            cursor = sqlDB.rawQuery("SELECT * FROM entryTBL;", null)
+            var cursor: Cursor = sqlDB.rawQuery("SELECT * FROM access;", null)
 
             // 시간, 장소 나타낼 문자열 선언
             var strTime = ""
@@ -68,12 +68,12 @@ class access_record : AppCompatActivity() {
         }
 
 
-         fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        fun onCreateOptionsMenu(menu: Menu?): Boolean {
             menuInflater.inflate(R.menu.idcard_menu, menu)
             return true
         }
 
-       fun onOptionsItemSelected(item: MenuItem): Boolean {
+        fun onOptionsItemSelected(item: MenuItem): Boolean {
             when(item?.itemId){
                 R.id.action_home -> {
                     val intent = Intent(this,idcard::class.java)
@@ -84,7 +84,7 @@ class access_record : AppCompatActivity() {
                     val intent = Intent(this,access_record::class.java)
                     startActivity(intent)
                     return true
-                }
+                }/*
                 R.id.pay -> {
                     try {
                         startActivity(intentPayco) // 페이코 앱을 실행해본다.
@@ -93,7 +93,7 @@ class access_record : AppCompatActivity() {
                         startActivity(intentPlayStore) // 플레이스토어로 이동시켜 설치유도.
                         return true
                     }
-                }
+                }*/
                 R.id.Logout-> {
                     val intent = Intent(this,MainActivity::class.java)
                     startActivity(intent)
@@ -106,7 +106,7 @@ class access_record : AppCompatActivity() {
 
     }
 
-
+/*
     inner class myDBHelper(context: Context) : SQLiteOpenHelper(context, "sampleDB", null, 1) {
         override fun onCreate(db: SQLiteDatabase?) {
             db!!.execSQL("CREATE TABLE entryTBL (time text, spot text);")
@@ -116,5 +116,5 @@ class access_record : AppCompatActivity() {
             db!!.execSQL("DROP TABLE IF EXISTS entryTBL")
             onCreate(db)
         }
-    }
+    }*/
 }

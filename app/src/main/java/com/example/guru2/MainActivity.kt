@@ -16,7 +16,7 @@ import androidx.appcompat.app.AlertDialog
 
 class MainActivity : AppCompatActivity() {
 
-     var myHelper : DBHelper? = null
+    lateinit var myHelper : DBHelper
     lateinit var sqlDB : SQLiteDatabase
     lateinit var btnLogin1 : Button
     lateinit var btnLogin2 : Button
@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTitle("")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         btnLogin1 = findViewById(R.id.btnLogin1) //로그인
@@ -52,7 +53,7 @@ class MainActivity : AppCompatActivity() {
                 sqlDB = myHelper.readableDatabase
 
                 var cursor: Cursor =
-                    sqlDB.rawQuery("SELECT * FROM db1 WHERE gNumber = '$getId';", null)
+                    sqlDB.rawQuery("SELECT * FROM private_info WHERE id = '$getId';", null)
                 if (!cursor.moveToFirst()){ //첫번째 레코드가 비어있을 경우 대화상자
                     val builder = AlertDialog.Builder(this)
                     builder.setTitle("알림!")
@@ -65,35 +66,39 @@ class MainActivity : AppCompatActivity() {
                     cursor?.close()
                     sqlDB.close()
                 } else { //첫 레코드가 비어있지 않을경우
-                        if (getId == cursor.getString(0) &&
-                                getPwd == cursor.getString(2)) { //입력된 아이디와 레코드[0] 값, 비밀번호와 첫 레코드[2]값이 둘다 같은지 비교
+                    if (getId == cursor.getString(0) &&
+                        getPwd == cursor.getString(2)) { //입력된 아이디와 레코드[0] 값, 비밀번호와 첫 레코드[2]값이 둘다 같은지 비교
 
-                            var getAuth= cursor.getString(3)
-                            var getName = cursor.getString(1)
+                        var getAuth= cursor.getString(3)
+                        var getName = cursor.getString(1)
+                        var getMajor = cursor.getString(5)
+                        var getDepart = cursor.getString(4)
 
-                            Toast.makeText(this, "로그인됨", Toast.LENGTH_SHORT).show() //같으면 로그인됨 토스트 메시지
+                        Toast.makeText(this, "로그인됨", Toast.LENGTH_SHORT).show() //같으면 로그인됨 토스트 메시지
 
-                            var intent = Intent(this,idcard::class.java) //다음 액티비티로 데이터 넘김
-                            intent.putExtra("getId",getId)
-                            intent.putExtra("getPwd",getPwd)
-                            intent.putExtra("getAuth",getAuth)
-                            intent.putExtra("getName",getName)
-                            startActivity(intent)
+                        var intent = Intent(this,idcard::class.java) //다음 액티비티로 데이터 넘김
+                        intent.putExtra("getId",getId)
+                        intent.putExtra("getPwd",getPwd)
+                        intent.putExtra("getAuth",getAuth)
+                        intent.putExtra("getName",getName)
+                        intent.putExtra("getMajor", getMajor)
+                        intent.putExtra("getDepart",getDepart)
+                        startActivity(intent)
 
 
-                        } else { //아이디와 비밀번호 둘중하나라도 다르면 대화상자
-                            val builder = AlertDialog.Builder(this)
+                    } else { //아이디와 비밀번호 둘중하나라도 다르면 대화상자
+                        val builder = AlertDialog.Builder(this)
 
-                            builder.setTitle("알림!")
-                            builder.setMessage("아이디/비밀번호가 일치하지 않거나 회원정보가 존재하지 않습니다.")
-                            builder.setIcon(R.drawable.symbol)
-                            builder.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
-                            })
-                            builder.show()
-                        }
+                        builder.setTitle("알림!")
+                        builder.setMessage("아이디/비밀번호가 일치하지 않거나 회원정보가 존재하지 않습니다.")
+                        builder.setIcon(R.drawable.symbol)
+                        builder.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
+                        })
+                        builder.show()
                     }
-                    cursor.close()
-                    sqlDB.close()
+                }
+                cursor.close()
+                sqlDB.close()
 
             }
 
@@ -117,7 +122,7 @@ class MainActivity : AppCompatActivity() {
                 sqlDB = myHelper.readableDatabase
 
                 var cursor: Cursor =
-                    sqlDB.rawQuery("SELECT * FROM db1 WHERE gNumber = '$getId';", null)
+                    sqlDB.rawQuery("SELECT * FROM private_info WHERE id = '$getId';", null)
 
 
                 if (!cursor.moveToFirst()) { //레코드가 비어있으면 대화상자
@@ -132,39 +137,43 @@ class MainActivity : AppCompatActivity() {
                     cursor?.close()
                     sqlDB.close()
                 } else { //비어있지않으면
-                        if (getId == cursor.getString(0) && //입력된 아이디와 첫 레코드[0] 값, 비밀번호와 첫 레코드[2]값이 둘다 같은지 비교
-                                getPwd == cursor.getString(2))
-                        { if (cursor.getString(3) == "1" || cursor.getString(3) == "2") { //둘다 같은경우 권한 확인 1또는 2인지
-                                var getAuth = cursor.getString(3)
-                                var getName = cursor.getString(1)
-                                if (getAuth == "1") { //권한이 1일경우 학생회 로그인 텍스트 메시지
-                                    Toast.makeText(this, "관리자 로그인됨 : 학생회", Toast.LENGTH_SHORT).show()
-                                } else if (getAuth == "2") //권한이 2일 경우 교직원 로그인 텍스트 메시지
-                                    Toast.makeText(this, "관리자 로그인됨 : 교직원", Toast.LENGTH_SHORT).show()
-                                var intent = Intent(this, admin_login_first::class.java) //다음 액티비티로
-                                intent.putExtra("getId", getId)
-                                intent.putExtra("getPwd", getPwd)
-                                intent.putExtra("getAuth", getAuth)
-                                intent.putExtra("getName", getName)
-                                startActivity(intent)
-                            } else { //권한이 1또는 2가 아닐경우 권한 없음 대화상자
-                                val builder = AlertDialog.Builder(this)
-                                builder.setTitle("알림!")
-                                builder.setMessage("관리자 권한이 없습니다.")
-                                builder.setIcon(R.drawable.symbol)
-                                builder.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
-                                })
-                                builder.show()
-                            }
-                        } else{ //입력된 값과 레코드에서 받은 값이 다를경우 대화상자
-                            val builder = AlertDialog.Builder(this)
-                            builder.setTitle("알림!")
-                            builder.setMessage("아이디/비밀번호가 일치하지 않거나 회원정보가 존재하지 않습니다.")
-                            builder.setIcon(R.drawable.symbol)
-                            builder.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
-                            })
-                            builder.show()
-                        }
+                    if (getId == cursor.getString(0) && //입력된 아이디와 첫 레코드[0] 값, 비밀번호와 첫 레코드[2]값이 둘다 같은지 비교
+                        getPwd == cursor.getString(2))
+                    { if (cursor.getString(3) == "1" || cursor.getString(3) == "2") { //둘다 같은경우 권한 확인 1또는 2인지
+                        var getAuth = cursor.getString(3)
+                        var getName = cursor.getString(1)
+                        var getMajor = cursor.getString(5)
+                        var getDepart = cursor.getString(4)
+                        if (getAuth == "1") { //권한이 1일경우 학생회 로그인 텍스트 메시지
+                            Toast.makeText(this, "관리자 로그인됨 : 학생회", Toast.LENGTH_SHORT).show()
+                        } else if (getAuth == "2") //권한이 2일 경우 교직원 로그인 텍스트 메시지
+                            Toast.makeText(this, "관리자 로그인됨 : 교직원", Toast.LENGTH_SHORT).show()
+                        var intent = Intent(this, admin_login_first::class.java) //다음 액티비티로
+                        intent.putExtra("getId", getId)
+                        intent.putExtra("getPwd", getPwd)
+                        intent.putExtra("getAuth", getAuth)
+                        intent.putExtra("getName", getName)
+                        intent.putExtra("getMajor", getMajor)
+                        intent.putExtra("getDepart",getDepart)
+                        startActivity(intent)
+                    } else { //권한이 1또는 2가 아닐경우 권한 없음 대화상자
+                        val builder = AlertDialog.Builder(this)
+                        builder.setTitle("알림!")
+                        builder.setMessage("관리자 권한이 없습니다.")
+                        builder.setIcon(R.drawable.symbol)
+                        builder.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
+                        })
+                        builder.show()
+                    }
+                    } else{ //입력된 값과 레코드에서 받은 값이 다를경우 대화상자
+                        val builder = AlertDialog.Builder(this)
+                        builder.setTitle("알림!")
+                        builder.setMessage("아이디/비밀번호가 일치하지 않거나 회원정보가 존재하지 않습니다.")
+                        builder.setIcon(R.drawable.symbol)
+                        builder.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
+                        })
+                        builder.show()
+                    }
 
                     cursor.close()
                     sqlDB.close()
@@ -175,7 +184,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    inner class myDBHelper(context: Context) : SQLiteOpenHelper(context, "db1", null, 1){
+    /*inner class myDBHelper(context: Context) : SQLiteOpenHelper(context, "db1", null, 1){
         override fun onCreate(db: SQLiteDatabase?) {
             db!!.execSQL("CREATE TABLE db1 (gNumber CHAR(20) PRIMARY KEY, gName CHAR(20), gPassword CHAR(20), gAuth INTEGER);")
         }
@@ -185,5 +194,5 @@ class MainActivity : AppCompatActivity() {
             onCreate(db)
         }
 
-    }
+    }*/
 }
