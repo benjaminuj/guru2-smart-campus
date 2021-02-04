@@ -1,11 +1,10 @@
-package com.example.administrator
+package com.example.guru2
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
-import com.example.guru2.R
 
-class MainActivity : AppCompatActivity() {
+class admin_read_card : AppCompatActivity() {
 
     lateinit var tvId1 : TextView
     lateinit var tvMajor1 : TextView
