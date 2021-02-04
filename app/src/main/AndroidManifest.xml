@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GURU2">
-        <activity android:name=".nfc_reader"></activity>
+        <activity android:name=".admin_read_card"></activity>
+        <activity android:name=".nfc_reader" />
         <activity android:name=".access_record" />
         <activity android:name=".idcard" />
         <activity
