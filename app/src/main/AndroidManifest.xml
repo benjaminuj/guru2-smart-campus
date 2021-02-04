@@ -29,6 +29,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!-- intent filter 추가함 -->
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="text/plain" />
+                <action android:name="android.nfc.action.TECH_DISCOVERED"/>
+            </intent-filter>
+
         </activity>
     </application>
 
