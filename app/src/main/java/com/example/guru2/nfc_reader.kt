@@ -29,7 +29,7 @@ class nfc_reader : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.nfc_reader)
+        setContentView(R.layout.activity_nfc_reader)
         setTitle("NFC reader")
 
         statementTV = findViewById(R.id.statementTV)
