@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 
-class PersonnelInfo : AppCompatActivity() {
+class nfc_reader : AppCompatActivity() {
 
     // NfcAdapter 변수 선언
     private lateinit var nfcAdapter: NfcAdapter // 단말기의 NFC 정보 얻어오기
@@ -45,8 +45,7 @@ class PersonnelInfo : AppCompatActivity() {
 
         // 2. intent 값 지정
         val intent = Intent(this, /*액티비티명*/MainActivity::class.java) // 다른 액티비티에서 처리
-        //현재 액티비티에서 해결할 때
-        // val intent = Intent(this, /*액티비티명*/MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+
         pendingIntent = PendingIntent.getActivity(this, 0, intent, 0) // Intent 정보를 PendingIntent 변수로 옮기기
 
         // 3. IntentFilter 지정
