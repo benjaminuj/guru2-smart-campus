@@ -18,7 +18,7 @@ class access_record : AppCompatActivity() {
         private val paycoPackage = "com.nhnent.payapp" // 페이코 앱의 패키지 주소
         private val intentPayco = packageManager.getLaunchIntentForPackage(paycoPackage) // 인텐트에 패키지 주소 저장
     */
-    lateinit var layout: LinearLayout
+
     lateinit var timeResult: TextView
     lateinit var spotResult: TextView
     lateinit var btnSelect: Button
@@ -27,7 +27,6 @@ class access_record : AppCompatActivity() {
     lateinit var sqlDB: SQLiteDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTitle(" ")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_access_record)
         setTitle("출입 기록")
