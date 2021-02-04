@@ -36,11 +36,17 @@ class nfc_reader : AppCompatActivity() {
 
         // 1. 단말기의 NFC 상태를 점검
         nfcAdapter = NfcAdapter.getDefaultAdapter(this) // NFC 사용 불가할 경우 null 반환
+        nfcAdapter.isEnabled
 
         if(nfcAdapter == null){
-            statementTV.setText("NFC가 꺼져있습니다")
+            statementTV.setText("NFC를 지원하지 않습니다")
         } else {
-            statementTV.setText("NFC가 켜져있습니다")
+            statementTV.setText("NFC를 지원합니다")
+            if (nfcAdapter.isEnabled){
+                statementTV.setText("NFC가 활성화 되어있습니다")
+            } else {
+                statementTV.setText("NFC가 비활성화 되어있습니다")
+            }
         }
 
         // 2. intent 값 지정
