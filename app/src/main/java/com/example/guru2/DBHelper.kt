@@ -24,21 +24,18 @@ class DBHelper(context: Context)
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-
         val createTable_privateinfo =
             "CREATE TABLE $TABLE_NAME" +
-                    "($ID TEXT PRIMARY KEY," + "$PASSWORD TEXT,"+
-                    "$NAME TEXT," + "$AUTH INTEGER," +"$DEPART TEXT," + "$MAJOR TEXT," +"$IMAGE BLOB)"
-        val creatTable_access =
-            "CREATE TABLE access" + "(time TEXT, spot TEXT, id TEXT, name TEXT, auth INTEGER, depart TEXT, major TEXT, image BLOB)"
-
+                    "($ID Integer PRIMARY KEY," + "$PASSWORD TEXT," +
+                    "$NAME TEXT," + "$AUTH INTEGER," + "$DEPART TEXT," + "$MAJOR TEXT," + "$IMAGE BLOB)"
+        val createTable_access =
+            "CREATE TABLE access" + "(time TEXT, spot TEXt, id TEXT, name TEXT, auth INTEGER, depart TEXT, major TEXT, image BLOB)"
         db?.execSQL(createTable_privateinfo)
-        db?.execSQL(creatTable_access)
+        db?.execSQL(createTable_access)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         TODO("Not yet implemented")
     }
-
-
 }
+
