@@ -152,6 +152,29 @@ class access_record : AppCompatActivity() {
         startActivity(intent)
     }
 
+    override fun onBackPressed() {
+        var getId = intent.getStringExtra("getId").toString()
+        var getPwd = intent.getStringExtra("getPwd").toString()
+        var getAuth = intent.getStringExtra("getAuth").toString()
+        var getName = intent.getStringExtra("getName").toString()
+        var getDepart = intent.getStringExtra("getDepart").toString()
+        var getMajor = intent.getStringExtra("getMajor").toString()
+        var getDue = intent.getStringExtra("getDue").toString()
+        var getReceive = intent.getStringExtra("getReceive").toString()
+        var getProfile = intent.getStringExtra("getProfile").toString()
+        val intent = Intent(this, idcard::class.java)
+        intent.putExtra("getId", getId)
+        intent.putExtra("getPwd", getPwd)
+        intent.putExtra("getAuth", getAuth)
+        intent.putExtra("getName", getName)
+        intent.putExtra("getMajor", getMajor)
+        intent.putExtra("getDepart", getDepart)
+        intent.putExtra("getDue", getDue)
+        intent.putExtra("getReceive", getReceive)
+        intent.putExtra("getProfile", getProfile)
+
+        startActivity(intent)
+    }
 }
 
 

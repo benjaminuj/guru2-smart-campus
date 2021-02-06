@@ -49,6 +49,8 @@ class idcard : AppCompatActivity() {
 
         if(getProfile !="")
             Glide.with(this).load(getProfile).into(this.imgProfile)
+        else
+            imgProfile.setImageResource(R.drawable.person)
 
 
     }
