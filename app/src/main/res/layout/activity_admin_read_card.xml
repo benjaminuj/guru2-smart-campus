@@ -18,7 +18,7 @@
         app:layout_constraintHorizontal_bias="0.098"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_baseline_add_a_photo_24" />
+        tools:src="@drawable/person" />
 
     <TextView
         android:id="@+id/tvId"
