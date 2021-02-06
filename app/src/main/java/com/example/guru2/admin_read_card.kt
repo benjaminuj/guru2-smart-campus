@@ -82,7 +82,6 @@ class admin_read_card : AppCompatActivity() {
         if(data != null){
             try {
 
-                //var i:Int
                 for (i in 0..data.size step 1){
                     val recs = (data[i] as NdefMessage).records
 
