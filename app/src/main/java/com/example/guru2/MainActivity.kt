@@ -100,7 +100,9 @@ class MainActivity : AppCompatActivity() {
                         intent.putExtra("getName", getName)
                         intent.putExtra("getMajor", getMajor)
                         intent.putExtra("getDepart", getDepart)
-                        intent.putExtra("getPorfile", getProfile)
+                        intent.putExtra("getProfile", getProfile)
+                        intent.putExtra("getDue",getDue)
+                        intent.putExtra("getReceive",getReceive)
                         startActivity(intent)
 
 
@@ -146,7 +148,7 @@ class MainActivity : AppCompatActivity() {
                                 Toast.makeText(this, "관리자 로그인됨 : 학생회", Toast.LENGTH_SHORT).show()
                             } else if (getAuth == "2") //권한이 2일 경우 교직원 로그인 텍스트 메시지
                                 Toast.makeText(this, "관리자 로그인됨 : 교직원", Toast.LENGTH_SHORT).show()
-                            var intent = Intent(this, idcard::class.java)
+                            var intent = Intent(this, admin_login_first::class.java)
 
 
                             intent.putExtra("getId", getId)
@@ -155,7 +157,9 @@ class MainActivity : AppCompatActivity() {
                             intent.putExtra("getName", getName)
                             intent.putExtra("getMajor", getMajor)
                             intent.putExtra("getDepart", getDepart)
-                            intent.putExtra("getPorfile", getProfile)
+                            intent.putExtra("getProfile", getProfile)
+                            intent.putExtra("getDue",getDue)
+                            intent.putExtra("getReceive",getReceive)
                             startActivity(intent)
 
                         } else {

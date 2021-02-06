@@ -7,7 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import java.lang.Exception
 
 class idcard : AppCompatActivity() {
@@ -16,6 +18,7 @@ class idcard : AppCompatActivity() {
     lateinit var tvMajor : TextView
     lateinit var tvName : TextView
     lateinit var tvDepart : TextView
+    lateinit var imgProfile: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTitle(" ")
@@ -25,6 +28,7 @@ class idcard : AppCompatActivity() {
         this.tvMajor = findViewById(R.id.tvMajor)
         this.tvName = findViewById(R.id.tvName)
         this.tvId = findViewById(R.id.tvId)
+        this.imgProfile = findViewById(R.id.imgProfile)
 
         var getId = intent.getStringExtra("getId").toString()
         var getPwd = intent.getStringExtra("getPwd").toString()
@@ -33,6 +37,8 @@ class idcard : AppCompatActivity() {
         var getDepart = intent.getStringExtra("getDepart").toString()
         var getMajor = intent.getStringExtra("getMajor").toString()
         var getProfile = intent.getStringExtra("getProfile").toString()
+        var getDue = intent.getStringExtra("getDue").toString()
+        var getReceive = intent.getStringExtra("getReceive").toString()
 
 
 
@@ -40,6 +46,7 @@ class idcard : AppCompatActivity() {
         tvMajor.setText(getMajor)
         tvName.setText(getName)
         tvId.setText(getId)
+        Glide.with(this).load(getProfile).into(this.imgProfile)
 
 
     }
@@ -57,6 +64,9 @@ class idcard : AppCompatActivity() {
                 var getName = intent.getStringExtra("getName").toString()
                 var getDepart = intent.getStringExtra("getDepart").toString()
                 var getMajor = intent.getStringExtra("getMajor").toString()
+                var getDue = intent.getStringExtra("getDue").toString()
+                var getReceive = intent.getStringExtra("getReceive").toString()
+                var getProfile = intent.getStringExtra("getProfile").toString()
                 val intent = Intent(this,idcard::class.java)
                 intent.putExtra("getId",getId)
                 intent.putExtra("getPwd",getPwd)
@@ -64,6 +74,9 @@ class idcard : AppCompatActivity() {
                 intent.putExtra("getName",getName)
                 intent.putExtra("getMajor", getMajor)
                 intent.putExtra("getDepart",getDepart)
+                intent.putExtra("getDue",getDue)
+                intent.putExtra("getReceive",getReceive)
+                intent.putExtra("getProfile",getProfile)
                 startActivity(intent)
                 return true
             }
@@ -97,6 +110,11 @@ class idcard : AppCompatActivity() {
     }
     fun Context.openApp(packageName: String) { // 특정 앱을 실행하는 함수
         val intent = packageManager.getLaunchIntentForPackage(packageName)
+        startActivity(intent)
+    }
+
+    override fun onBackPressed() {
+        val intent = Intent(this,MainActivity::class.java)
         startActivity(intent)
     }
 
