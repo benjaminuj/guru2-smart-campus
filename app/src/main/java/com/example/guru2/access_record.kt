@@ -8,16 +8,15 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Parcel
+import android.os.Parcelable
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.*
 import org.w3c.dom.Text
 
 class access_record : AppCompatActivity() {
-    /*
-        private val paycoPackage = "com.nhnent.payapp" // 페이코 앱의 패키지 주소
-        private val intentPayco = packageManager.getLaunchIntentForPackage(paycoPackage) // 인텐트에 패키지 주소 저장
-    */
+
 
     lateinit var timeResult: TextView
     lateinit var spotResult: TextView
@@ -25,6 +24,7 @@ class access_record : AppCompatActivity() {
 
     lateinit var myHelper: DBHelper
     lateinit var sqlDB: SQLiteDatabase
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,65 +65,93 @@ class access_record : AppCompatActivity() {
 
             Toast.makeText(applicationContext, "조회됨", Toast.LENGTH_SHORT).show()
         }
+    }
 
 
-        fun onCreateOptionsMenu(menu: Menu?): Boolean {
-            menuInflater.inflate(R.menu.idcard_menu, menu)
-            return true
-        }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.access_record_menu, menu)
+        return true
+    }
 
-        fun onOptionsItemSelected(item: MenuItem): Boolean {
-            when(item?.itemId){
-                R.id.action_home -> {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item?.itemId) {
+            R.id.action_home -> {
+                var getId = intent.getStringExtra("getId").toString()
+                var getPwd = intent.getStringExtra("getPwd").toString()
+                var getAuth = intent.getStringExtra("getAuth").toString()
+                var getName = intent.getStringExtra("getName").toString()
+                var getDepart = intent.getStringExtra("getDepart").toString()
+                var getMajor = intent.getStringExtra("getMajor").toString()
+                var getDue = intent.getStringExtra("getDue").toString()
+                var getReceive = intent.getStringExtra("getReceive").toString()
+                var getProfile = intent.getStringExtra("getProfile").toString()
+                val intent = Intent(this, idcard::class.java)
+                intent.putExtra("getId", getId)
+                intent.putExtra("getPwd", getPwd)
+                intent.putExtra("getAuth", getAuth)
+                intent.putExtra("getName", getName)
+                intent.putExtra("getMajor", getMajor)
+                intent.putExtra("getDepart", getDepart)
+                intent.putExtra("getDue", getDue)
+                intent.putExtra("getReceive", getReceive)
+                intent.putExtra("getProfile", getProfile)
+                startActivity(intent)
+                return true
+            }
+            R.id.record -> {
                     var getId = intent.getStringExtra("getId").toString()
                     var getPwd = intent.getStringExtra("getPwd").toString()
                     var getAuth = intent.getStringExtra("getAuth").toString()
                     var getName = intent.getStringExtra("getName").toString()
                     var getDepart = intent.getStringExtra("getDepart").toString()
                     var getMajor = intent.getStringExtra("getMajor").toString()
-                    val intent = Intent(this,idcard::class.java)
-                    intent.putExtra("getId",getId)
-                    intent.putExtra("getPwd",getPwd)
-                    intent.putExtra("getAuth",getAuth)
-                    intent.putExtra("getName",getName)
+                    var getDue = intent.getStringExtra("getDue").toString()
+                    var getReceive = intent.getStringExtra("getReceive").toString()
+                    var getProfile = intent.getStringExtra("getProfile").toString()
+                    val intent = Intent(this, access_record::class.java)
+                    intent.putExtra("getId", getId)
+                    intent.putExtra("getPwd", getPwd)
+                    intent.putExtra("getAuth", getAuth)
+                    intent.putExtra("getName", getName)
                     intent.putExtra("getMajor", getMajor)
-                    intent.putExtra("getDepart",getDepart)
+                    intent.putExtra("getDepart", getDepart)
+                    intent.putExtra("getDue", getDue)
+                    intent.putExtra("getReceive", getReceive)
+                    intent.putExtra("getProfile", getProfile)
                     startActivity(intent)
                     return true
-                }
-                R.id.record -> {
-                    val intent = Intent(this,access_record::class.java)
-                    startActivity(intent)
-                    return true
-                }
-                R.id.pay -> {
-                    if (isInstalledApp("com.nhnent.payapp"))
-                    {
-                        openApp("com.nhnent.payapp")
-                    }else{
-                        val intentPlayStore = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.nhnent.payapp")) // 설치 링크를 인텐트에 담아
-                        startActivity(intentPlayStore) // 플레이스토어로 이동시켜 설치유도.
-                    }
-
-                }
-                R.id.Logout-> {
-                    val intent = Intent(this,MainActivity::class.java)
-                    startActivity(intent)
-                    return true
-                }
             }
-            return super.onOptionsItemSelected(item)
+            R.id.pay -> {
+                if (isInstalledApp("com.nhnent.payapp")) {
+                    openApp("com.nhnent.payapp")
+                } else {
+                    val intentPlayStore = Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=com.nhnent.payapp")
+                    ) // 설치 링크를 인텐트에 담아
+                    startActivity(intentPlayStore) // 플레이스토어로 이동시켜 설치유도.
+                }
+
+            }
+            R.id.Logout -> {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                return true
+            }
         }
-
-
+        return super.onOptionsItemSelected(item)
     }
+
     fun Context.isInstalledApp(packageName: String): Boolean {
         val intent = packageManager.getLaunchIntentForPackage(packageName)
         return intent != null
     }
+
     fun Context.openApp(packageName: String) { // 특정 앱을 실행하는 함수
         val intent = packageManager.getLaunchIntentForPackage(packageName)
         startActivity(intent)
     }
 
 }
+
+

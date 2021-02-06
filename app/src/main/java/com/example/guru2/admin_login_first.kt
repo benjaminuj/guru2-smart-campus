@@ -26,6 +26,10 @@ class admin_login_first : AppCompatActivity() {
         var getName = intent.getStringExtra("getName").toString()
         var getDepart = intent.getStringExtra("getDepart").toString()
         var getMajor = intent.getStringExtra("getMajor").toString()
+        var getProfile = intent.getStringExtra("getProfile").toString()
+        var getDue = intent.getStringExtra("getDue").toString()
+        var getReceive = intent.getStringExtra("getReceive").toString()
+
 
 
         //출결확인 버튼
@@ -46,6 +50,9 @@ class admin_login_first : AppCompatActivity() {
                 intent.putExtra("getName", getName)
                 intent.putExtra("getMajor", getMajor)
                 intent.putExtra("getDepart", getDepart)
+                intent.putExtra("getDue",getDue)
+                intent.putExtra("getReceive",getReceive)
+                intent.putExtra("getProfile",getProfile)
                 startActivity(intent)
             }
 
