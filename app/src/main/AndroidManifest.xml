@@ -7,7 +7,7 @@
         android:required="false" />
 
     <uses-permission android:name="android.permission.NFC" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GURU2">
-        <activity android:name=".admin_read_card"></activity>
+        <activity android:name=".attend_confirm"> </activity>
+        <activity android:name=".admin_read_card" />
         <activity android:name=".nfc_reader" />
         <activity android:name=".access_record" />
         <activity android:name=".idcard" />
@@ -32,12 +33,14 @@
             </intent-filter>
             <!-- intent filter 추가함 -->
             <intent-filter>
-                <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:mimeType="text/plain" />
-                <action android:name="android.nfc.action.TECH_DISCOVERED"/>
-            </intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="text/plain" />
+
+                <action android:name="android.nfc.action.TECH_DISCOVERED" />
+            </intent-filter>
         </activity>
     </application>
 

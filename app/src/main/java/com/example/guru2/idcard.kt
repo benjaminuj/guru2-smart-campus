@@ -1,24 +1,32 @@
 package com.example.guru2
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.nfc.NdefMessage
+import android.nfc.NdefRecord.createMime
+import android.nfc.NfcAdapter
+import android.nfc.NfcEvent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import java.lang.Exception
 
-class idcard : AppCompatActivity() {
+class idcard : Activity(), NfcAdapter.CreateNdefMessageCallback {
 
     lateinit var tvId : TextView
     lateinit var tvMajor : TextView
     lateinit var tvName : TextView
     lateinit var tvDepart : TextView
     lateinit var imgProfile: ImageView
+    private var nfcAdapter: NfcAdapter? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTitle(" ")
@@ -51,6 +59,16 @@ class idcard : AppCompatActivity() {
             Glide.with(this).load(getProfile).into(this.imgProfile)
         else
             imgProfile.setImageResource(R.drawable.person)
+
+
+        nfcAdapter = NfcAdapter.getDefaultAdapter(this)
+        if (nfcAdapter == null) {
+            Toast.makeText(this, "NFC is not available", Toast.LENGTH_LONG).show()
+            finish()
+            return
+        }
+        // Register callback
+        nfcAdapter?.setNdefPushMessageCallback(this, this)
 
 
     }
@@ -138,6 +156,24 @@ class idcard : AppCompatActivity() {
     override fun onBackPressed() {
         val intent = Intent(this,MainActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun createNdefMessage(event: NfcEvent): NdefMessage {
+        var getId = intent.getStringExtra("getId").toString()
+        val text = getId + System.currentTimeMillis()
+        return NdefMessage(
+            arrayOf(
+                createMime(getId,text.toByteArray())
+            )
+            /**
+             * The Android Application Record (AAR) is commented out. When a device
+             * receives a push with an AAR in it, the application specified in the AAR
+             * is guaranteed to run. The AAR overrides the tag dispatch system.
+             * You can add it back in to guarantee that this
+             * activity starts when receiving a beamed message. For now, this code
+             * uses the tag dispatch system.
+             *///,NdefRecord.createApplicationRecord("com.example.android.beam")
+        )
     }
 
 }

@@ -20,13 +20,14 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginHorizontal="10dp">
+
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
             android:layout_weight="1"
             android:text="시간"
-            android:textSize="20dp"
-            android:layout_marginRight="15dp"/>
+            android:textSize="20dp" />
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -47,7 +48,7 @@
 
             <TextView
                 android:id="@+id/timeResult"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 

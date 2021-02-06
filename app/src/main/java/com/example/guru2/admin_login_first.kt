@@ -43,7 +43,7 @@ class admin_login_first : AppCompatActivity() {
                 })
                 builder.show()
             }else {
-                var intent = Intent(this, access_record::class.java)
+                var intent = Intent(this, attend_confirm::class.java)
                 intent.putExtra("getId", getId)
                 intent.putExtra("getPwd", getPwd)
                 intent.putExtra("getAuth", getAuth)

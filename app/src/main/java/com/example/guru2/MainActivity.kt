@@ -117,7 +117,7 @@ class MainActivity : AppCompatActivity() {
 
                     }
                     //anything you want to start after 3s
-                }, 1000)
+                }, 1200)
 
             }
 
@@ -182,7 +182,7 @@ class MainActivity : AppCompatActivity() {
 
                     }
                     //anything you want to start after 3s
-                }, 1000)
+                }, 1200)
 
             }
         }
