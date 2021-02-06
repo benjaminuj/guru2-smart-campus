@@ -158,12 +158,12 @@ class idcard : Activity(), NfcAdapter.CreateNdefMessageCallback {
         startActivity(intent)
     }
 
+
     override fun createNdefMessage(event: NfcEvent): NdefMessage {
-        var getId = intent.getStringExtra("getId").toString()
-        val text = getId + System.currentTimeMillis()
+        var getId = intent.getStringExtra("getDepart").toString()
         return NdefMessage(
             arrayOf(
-                createMime(getId,text.toByteArray())
+                createMime("application/vnd.com.example.android.beam",getId.toByteArray())
             )
             /**
              * The Android Application Record (AAR) is commented out. When a device
