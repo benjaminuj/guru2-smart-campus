@@ -28,10 +28,11 @@ class idcard : AppCompatActivity() {
 
         var getId = intent.getStringExtra("getId").toString()
         var getPwd = intent.getStringExtra("getPwd").toString()
-       var getAuth = intent.getStringExtra("getAuth").toString()
+        var getAuth = intent.getStringExtra("getAuth").toString()
         var getName = intent.getStringExtra("getName").toString()
         var getDepart = intent.getStringExtra("getDepart").toString()
         var getMajor = intent.getStringExtra("getMajor").toString()
+        var getProfile = intent.getStringExtra("getProfile").toString()
 
 
 

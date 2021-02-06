@@ -28,6 +28,7 @@ class admin_login_first : AppCompatActivity() {
         var getMajor = intent.getStringExtra("getMajor").toString()
 
 
+
         //출결확인 버튼
         btnAttend.setOnClickListener {
             if(getAuth =="1"){
