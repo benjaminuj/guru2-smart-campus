@@ -8,7 +8,6 @@ import android.nfc.NdefMessage
 import android.nfc.NdefRecord.createMime
 import android.nfc.NfcAdapter
 import android.nfc.NfcEvent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -16,7 +15,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
-import java.lang.Exception
 
 class idcard : Activity(), NfcAdapter.CreateNdefMessageCallback {
 
@@ -140,7 +138,7 @@ class idcard : Activity(), NfcAdapter.CreateNdefMessageCallback {
 
 
     override fun createNdefMessage(event: NfcEvent): NdefMessage {
-        var getId = intent.getStringExtra("getId").toString()
+        var getId = intent.getStringExtra("getDepart").toString()
         return NdefMessage(
             arrayOf(
                 createMime("application/vnd.com.example.android.beam",getId.toByteArray())
