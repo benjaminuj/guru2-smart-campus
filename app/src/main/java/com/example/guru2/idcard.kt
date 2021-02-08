@@ -140,7 +140,7 @@ class idcard : Activity(), NfcAdapter.CreateNdefMessageCallback {
 
 
     override fun createNdefMessage(event: NfcEvent): NdefMessage {
-        var getId = intent.getStringExtra("getDepart").toString()
+        var getId = intent.getStringExtra("getId").toString()
         return NdefMessage(
             arrayOf(
                 createMime("application/vnd.com.example.android.beam",getId.toByteArray())
