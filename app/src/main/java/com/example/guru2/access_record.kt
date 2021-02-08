@@ -47,7 +47,7 @@ class access_record : AppCompatActivity() {
             sqlDB = myHelper.readableDatabase
 
             // 커서 선언, 테이블 조회 후 대입
-            var cursor: Cursor = sqlDB.rawQuery("SELECT date, time, spot FROM entry;", null)
+            var cursor: Cursor = sqlDB.rawQuery("SELECT date, time, spot, id FROM entry;", null)
 
             // 시간, 장소 나타낼 문자열 선언
             var strDate = ""
