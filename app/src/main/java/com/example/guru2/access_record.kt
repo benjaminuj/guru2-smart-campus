@@ -17,9 +17,10 @@ import org.w3c.dom.Text
 
 class access_record : AppCompatActivity() {
 
-
+    lateinit var dateResult: TextView
     lateinit var timeResult: TextView
     lateinit var spotResult: TextView
+    lateinit var idReslt: TextView
     lateinit var btnSelect: Button
 
     lateinit var myHelper: DBHelper
@@ -32,8 +33,10 @@ class access_record : AppCompatActivity() {
         setTitle("출입 기록")
 
         // xml 위젯 객체 연결
+        dateResult = findViewById(R.id.dateResult)
         timeResult = findViewById(R.id.timeResult)
         spotResult = findViewById(R.id.spotResult)
+        idReslt = findViewById(R.id.idResult)
         btnSelect = findViewById(R.id.btnSelect)
 
         // DB 클래스 객체 생성
@@ -44,21 +47,27 @@ class access_record : AppCompatActivity() {
             sqlDB = myHelper.readableDatabase
 
             // 커서 선언, 테이블 조회 후 대입
-            var cursor: Cursor = sqlDB.rawQuery("SELECT * FROM access;", null)
+            var cursor: Cursor = sqlDB.rawQuery("SELECT date, time, spot, id FROM entry;", null)
 
             // 시간, 장소 나타낼 문자열 선언
+            var strDate = ""
             var strTime = ""
             var strSpot = ""
+            var strId =""
 
             // 커서 움직이며 데이터값 반환, 문자열 변수에 누적
             while (cursor.moveToNext()) {
-                strTime = cursor.getString(0) + "\r\n" + strTime
-                strSpot = cursor.getString(1) + "\r\n" + strSpot
+                strDate = cursor.getString(0) + "\r\n" + strDate
+                strTime = cursor.getString(1) + "\r\n" + strTime
+                strSpot = cursor.getString(2) + "\r\n" + strSpot
+                strId = cursor.getString(3) + "\r\n" + strId
             }
 
             // 출력
+            dateResult.setText(strDate)
             timeResult.setText(strTime)
             spotResult.setText(strSpot)
+            idReslt.setText(strId)
 
             cursor.close()
             sqlDB.close()

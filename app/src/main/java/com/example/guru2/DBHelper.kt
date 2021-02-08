@@ -11,27 +11,28 @@ class DBHelper(context: Context)
     :SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
 
     companion object {
-        private val DB_NAME = "UserDB"
+        private val DB_NAME = "RecordDB"
         private val DB_VERSION = 1
-        private val TABLE_NAME = "private_info"
-        private val ID = "id"
+        private val TABLE_NAME = "entry"
+        private val DATE = "date"
+        private val TIME = "time"
         private val NAME = "name"
-        private val AUTH = "auth"
-        private val DEPART = "depart"
+        private val ID = "id"
         private val MAJOR = "major"
-        private val PASSWORD = "password"
-        private val IMAGE = "image"
+        private val SPOT = "spot"
+        private val LECTURE = "lecture"
+        private val PROFESSOR = "professor"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-        val createTable_privateinfo =
+        val createTable_entry =
             "CREATE TABLE $TABLE_NAME" +
-                    "($ID Integer PRIMARY KEY," + "$PASSWORD TEXT," +
-                    "$NAME TEXT," + "$AUTH INTEGER," + "$DEPART TEXT," + "$MAJOR TEXT," + "$IMAGE BLOB)"
-        val createTable_access =
-            "CREATE TABLE access" + "(time TEXT, spot TEXt, id TEXT, name TEXT, auth INTEGER, depart TEXT, major TEXT, image BLOB)"
-        db?.execSQL(createTable_privateinfo)
-        db?.execSQL(createTable_access)
+                    "($DATE TEXT," + "$TIME TEXT," +
+                    "$NAME TEXT," + "$ID INTEGER," + "$MAJOR TEXT," +
+                    "$SPOT TEXT," + "$LECTURE TEXT," + "$PROFESSOR TEXT)"
+
+        db?.execSQL(createTable_entry)
+
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {

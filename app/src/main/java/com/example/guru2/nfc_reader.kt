@@ -58,23 +58,23 @@ class nfc_reader : Activity(), NfcAdapter.CreateNdefMessageCallback {
                 })
                 builder.show()
             }
-                else if(readId =="리더기"){
-                    val builder = AlertDialog.Builder(this)
-                    builder.setTitle("알림!")
-                    builder.setMessage("올바른 아이디 카드가 아닙니다. 다시 태그해주세요.")
-                    builder.setIcon(R.drawable.symbol)
-                    builder.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
-                    })
-                    builder.show()
-                }else{
+            else if(readId =="리더기"){
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("알림!")
+                builder.setMessage("올바른 아이디 카드가 아닙니다. 다시 태그해주세요.")
+                builder.setIcon(R.drawable.symbol)
+                builder.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
+                })
+                builder.show()
+            }else{
                 var intent = Intent(this, admin_read_card::class.java)
                 intent.putExtra("getId",readId)
                 startActivity(intent)
 
             }
-            }
-
         }
+
+    }
 
 
 
@@ -86,25 +86,25 @@ class nfc_reader : Activity(), NfcAdapter.CreateNdefMessageCallback {
 
         val text = "리더기"
         return NdefMessage(
-            arrayOf(
-                NdefRecord.createMime("application/vnd.com.example.android.beam", text.toByteArray())
-            )
-            /**
-             * The Android Application Record (AAR) is commented out. When a device
-             * receives a push with an AAR in it, the application specified in the AAR
-             * is guaranteed to run. The AAR overrides the tag dispatch system.
-             * You can add it back in to guarantee that this
-             * activity starts when receiving a beamed message. For now, this code
-             * uses the tag dispatch system.
-             */
-            /**
-             * The Android Application Record (AAR) is commented out. When a device
-             * receives a push with an AAR in it, the application specified in the AAR
-             * is guaranteed to run. The AAR overrides the tag dispatch system.
-             * You can add it back in to guarantee that this
-             * activity starts when receiving a beamed message. For now, this code
-             * uses the tag dispatch system.
-             *///NdefRecord.createApplicationRecord("com.example.android.beam")
+                arrayOf(
+                        NdefRecord.createMime("application/vnd.com.example.android.beam", text.toByteArray())
+                )
+                /**
+                 * The Android Application Record (AAR) is commented out. When a device
+                 * receives a push with an AAR in it, the application specified in the AAR
+                 * is guaranteed to run. The AAR overrides the tag dispatch system.
+                 * You can add it back in to guarantee that this
+                 * activity starts when receiving a beamed message. For now, this code
+                 * uses the tag dispatch system.
+                 */
+                /**
+                 * The Android Application Record (AAR) is commented out. When a device
+                 * receives a push with an AAR in it, the application specified in the AAR
+                 * is guaranteed to run. The AAR overrides the tag dispatch system.
+                 * You can add it back in to guarantee that this
+                 * activity starts when receiving a beamed message. For now, this code
+                 * uses the tag dispatch system.
+                 *///NdefRecord.createApplicationRecord("com.example.android.beam")
         )
     }
 
@@ -132,9 +132,9 @@ class nfc_reader : Activity(), NfcAdapter.CreateNdefMessageCallback {
                 readId=String(records[0].payload)
 
 
-                }
             }
         }
+    }
 
     override fun onBackPressed() {
         val intent = Intent(this,admin_login_first::class.java)
