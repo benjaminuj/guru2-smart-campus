@@ -91,12 +91,12 @@ class admin_login_first : AppCompatActivity() {
         //리더기 버튼
         btnReader.setOnClickListener {
 
-           var intent = Intent(this,nfc_reader::class.java)
-           intent.putExtra("getId",getId)
-           intent.putExtra("getPwd",getPwd)
-           intent.putExtra("getAuth",getAuth)
-           intent.putExtra("getName",getName)
-           startActivity(intent)
+            var intent = Intent(this,nfc_reader::class.java)
+            intent.putExtra("getId",getId)
+            intent.putExtra("getPwd",getPwd)
+            intent.putExtra("getAuth",getAuth)
+            intent.putExtra("getName",getName)
+            startActivity(intent)
 
         }
     }

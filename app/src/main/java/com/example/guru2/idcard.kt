@@ -8,7 +8,6 @@ import android.nfc.NdefMessage
 import android.nfc.NdefRecord.createMime
 import android.nfc.NfcAdapter
 import android.nfc.NfcEvent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -16,7 +15,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
-import java.lang.Exception
 
 class idcard : Activity(), NfcAdapter.CreateNdefMessageCallback {
 

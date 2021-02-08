@@ -1,27 +1,16 @@
 package com.example.guru2
-
 import android.app.Activity
-import android.app.PendingIntent
 import android.content.DialogInterface
 import android.content.Intent
-import android.content.IntentFilter
 import android.nfc.NdefMessage
 import android.nfc.NdefRecord
 import android.nfc.NfcAdapter
 import android.nfc.NfcEvent
-import android.nfc.tech.NfcA
-import android.nfc.tech.NfcF
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+
 
 
 class nfc_reader : Activity(), NfcAdapter.CreateNdefMessageCallback {
@@ -86,25 +75,25 @@ class nfc_reader : Activity(), NfcAdapter.CreateNdefMessageCallback {
 
         val text = "리더기"
         return NdefMessage(
-                arrayOf(
-                        NdefRecord.createMime("application/vnd.com.example.android.beam", text.toByteArray())
-                )
-                /**
-                 * The Android Application Record (AAR) is commented out. When a device
-                 * receives a push with an AAR in it, the application specified in the AAR
-                 * is guaranteed to run. The AAR overrides the tag dispatch system.
-                 * You can add it back in to guarantee that this
-                 * activity starts when receiving a beamed message. For now, this code
-                 * uses the tag dispatch system.
-                 */
-                /**
-                 * The Android Application Record (AAR) is commented out. When a device
-                 * receives a push with an AAR in it, the application specified in the AAR
-                 * is guaranteed to run. The AAR overrides the tag dispatch system.
-                 * You can add it back in to guarantee that this
-                 * activity starts when receiving a beamed message. For now, this code
-                 * uses the tag dispatch system.
-                 *///NdefRecord.createApplicationRecord("com.example.android.beam")
+            arrayOf(
+                NdefRecord.createMime("application/vnd.com.example.android.beam", text.toByteArray())
+            )
+            /**
+             * The Android Application Record (AAR) is commented out. When a device
+             * receives a push with an AAR in it, the application specified in the AAR
+             * is guaranteed to run. The AAR overrides the tag dispatch system.
+             * You can add it back in to guarantee that this
+             * activity starts when receiving a beamed message. For now, this code
+             * uses the tag dispatch system.
+             */
+            /**
+             * The Android Application Record (AAR) is commented out. When a device
+             * receives a push with an AAR in it, the application specified in the AAR
+             * is guaranteed to run. The AAR overrides the tag dispatch system.
+             * You can add it back in to guarantee that this
+             * activity starts when receiving a beamed message. For now, this code
+             * uses the tag dispatch system.
+             *///NdefRecord.createApplicationRecord("com.example.android.beam")
         )
     }
 

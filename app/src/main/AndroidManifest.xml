@@ -21,15 +21,15 @@
 
         <activity android:name=".access_record" />
         <activity android:name=".idcard" >
-        <intent-filter>
-            <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
 
-            <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.DEFAULT" />
 
-            <data android:mimeType="application/vnd.com.example.android.beam" />
+                <data android:mimeType="application/vnd.com.example.android.beam" />
 
-            <action android:name="android.nfc.action.TECH_DISCOVERED" />
-        </intent-filter></activity>
+                <action android:name="android.nfc.action.TECH_DISCOVERED" />
+            </intent-filter></activity>
         <activity
             android:name=".admin_login_first"
             android:parentActivityName=".MainActivity" />
@@ -41,8 +41,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-            <!-- intent filter 추가함 -->
-            <activity android:name=".nfc_reader" >
+        <!-- intent filter 추가함 -->
+        <activity android:name=".nfc_reader" >
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
 

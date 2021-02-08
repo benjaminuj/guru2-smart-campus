@@ -10,14 +10,14 @@
         android:id="@+id/btnRecord"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="100dp"
         android:background="#404040"
         android:text="출입기록확인"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/btnReader"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnAttend"
         app:layout_constraintVertical_bias="0.0" />
@@ -29,7 +29,7 @@
         android:layout_marginTop="100dp"
         app:layout_constraintBottom_toTopOf="@+id/tvId"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/symbol" />
@@ -38,33 +38,29 @@
         android:id="@+id/btnReader"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="100dp"
         android:background="#404040"
         android:text="리더기"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnAttend"
         app:layout_constraintEnd_toEndOf="@+id/btnRecord"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/btnRecord"
-        app:layout_constraintTop_toBottomOf="@+id/btnRecord" />
+        app:layout_constraintTop_toBottomOf="@+id/tvId" />
 
     <Button
         android:id="@+id/btnAttend"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:background="#404040"
         android:text="출결확인"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnRecord"
         app:layout_constraintEnd_toEndOf="@+id/btnRecord"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/btnRecord"
-        app:layout_constraintTop_toBottomOf="@+id/tvId"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintTop_toBottomOf="@+id/btnReader" />
 
     <TextView
         android:id="@+id/tvId"
@@ -76,8 +72,9 @@
         android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/btnAttend"
+        app:layout_constraintBottom_toTopOf="@+id/btnReader"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
