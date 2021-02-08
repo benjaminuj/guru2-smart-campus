@@ -29,9 +29,12 @@ class DBHelper(context: Context)
             "CREATE TABLE $TABLE_NAME" +
                     "($DATE TEXT," + "$TIME TEXT," +
                     "$NAME TEXT," + "$ID INTEGER," + "$MAJOR TEXT," +
-                    "$SPOT TEXT," + "$LECTURE TEXT," + "$PROFESSOR TEXT)"
-
+                    "$SPOT TEXT," + "$PROFESSOR TEXT)"
+        val createTable_lec_info =
+            "CREATE TABLE lec_info" +
+                    "($PROFESSOR TEXT," + "$SPOT TEXT," + "$LECTURE TEXT)"
         db?.execSQL(createTable_entry)
+        db?.execSQL(createTable_lec_info)
 
     }
 
