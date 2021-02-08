@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog
 
 class admin_login_first : AppCompatActivity() {
     lateinit var btnReader :Button
+    lateinit var btnRecord :Button
     lateinit var btnAttend : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,6 +21,7 @@ class admin_login_first : AppCompatActivity() {
         setContentView(R.layout.activity_admin_login_first)
         btnReader = findViewById(R.id.btnReader) //리더기 버튼
         btnAttend = findViewById(R.id.btnAttend) //출결확인 버튼
+        btnRecord = findViewById(R.id.btnRecord)
         var getId = intent.getStringExtra("getId").toString()
         var getPwd = intent.getStringExtra("getPwd").toString()
         var getAuth = intent.getStringExtra("getAuth").toString()
@@ -44,6 +46,32 @@ class admin_login_first : AppCompatActivity() {
                 builder.show()
             }else {
                 var intent = Intent(this, attend_confirm::class.java)
+                intent.putExtra("getId", getId)
+                intent.putExtra("getPwd", getPwd)
+                intent.putExtra("getAuth", getAuth)
+                intent.putExtra("getName", getName)
+                intent.putExtra("getMajor", getMajor)
+                intent.putExtra("getDepart", getDepart)
+                intent.putExtra("getDue",getDue)
+                intent.putExtra("getReceive",getReceive)
+                intent.putExtra("getProfile",getProfile)
+                startActivity(intent)
+            }
+
+
+        }
+
+        btnRecord.setOnClickListener {
+            if(getAuth =="1"){
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("알림!")
+                builder.setMessage("출결 확인 권한이 없습니다.")
+                builder.setIcon(R.drawable.symbol)
+                builder.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
+                })
+                builder.show()
+            }else {
+                var intent = Intent(this, access_record::class.java)
                 intent.putExtra("getId", getId)
                 intent.putExtra("getPwd", getPwd)
                 intent.putExtra("getAuth", getAuth)
