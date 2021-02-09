@@ -53,7 +53,7 @@ class admin_read_card : AppCompatActivity() {
                 TODO("Not yet implemented")
             }
 
-            override fun onDataChange(snapshot: DataSnapshot) {
+            override fun onDataChange(snapshot: DataSnapshot) { //데이터가 변경되면 값을 받음
                 getDepart = snapshot.child("depart").value.toString()
                 getDue = snapshot.child("due").value.toString()
                 getMajor = snapshot.child("major").value.toString()
@@ -67,39 +67,44 @@ class admin_read_card : AppCompatActivity() {
 
 
         val database = FirebaseDatabase.getInstance()
-        var getId = intent.getStringExtra("getId").toString()
-        database.getReference(getId).addValueEventListener(getData)
+        var getId = intent.getStringExtra("getId").toString() //nfc리더에서 받아온 id(학번)값
+        database.getReference(getId).addValueEventListener(getData) //getId 테이블에서 값을 검색해 변경된 데이터 저장
 
 
-        Handler().postDelayed(Runnable {
+        Handler().postDelayed(Runnable { //서버에서값 가져오는것 기다리는 시간 주기
 
             tvDepart1.text = getDepart
             tvMajor1.text = getMajor
             tvName1.setText(getName)
             tvId1.setText(getId)
+
+            //db에서 받아온 이미지파일 정보가 없으면 기본 사진을 보여주고 있으면 서버 storage에 저장된 사진을 보여줌
             if(getProfile != "")
                 Glide.with(this).load(getProfile).into(this.imgProfile)
             else
                 imgProfile.setImageResource(R.drawable.person)
+
+            ////db에서 받아온 getDue(학생회비 납부 여부)값이 0이면 텍스트를 O, 아니면 텍스트를 X로 바꿈
             if(getDue =="0"){
                 tvMoney1.text = "O"}
             else{
                 tvMoney1.text = "X"}
+            ////db에서 받아온 getReceive(행사 수령 여부)값이 0이면 텍스트를 수령, 아니면 텍스트를 미수령으로 바꿈
             if(getReceive =="0")
                 tvParticipate1.text = "수령"
             else
                 tvParticipate1.text = "미수령"
 
-
+            //학생회비 납부 여부가 O이고 행사 수령 여부가 미수령이면 버튼 활성화
             btnReceive.isEnabled = getDue=="0" && getReceive=="1"
 
         }, 1500)
 
 
 
-
+        //버튼을 클릭했을 때
         btnReceive.setOnClickListener {
-            database.reference.child(getId).child("receive").setValue("0")
+            database.reference.child(getId).child("receive").setValue("0") //서버 getId 이름의 테이블의 receive 값을 0(수령함)으로 변경
             Toast.makeText(this, "수령으로 변경되었습니다", Toast.LENGTH_SHORT).show()
             btnReceive.isEnabled=false
 
@@ -107,28 +112,10 @@ class admin_read_card : AppCompatActivity() {
 
     }
 
-        override fun onBackPressed() {
-
-            var getReaderId = intent.getStringExtra("getReaderId").toString()
-            var getReaderPwd = intent.getStringExtra("getReaderPwd").toString()
-            var getReaderAuth = intent.getStringExtra("getReaderAuth").toString()
-            var getReaderName = intent.getStringExtra("getReaderName").toString()
-            var getReaderDepart = intent.getStringExtra("getReaderDepart").toString()
-            var getReaderMajor = intent.getStringExtra("getReaderMajor").toString()
-            var getReaderProfile = intent.getStringExtra("getReaderProfile").toString()
-            var getReaderDue = intent.getStringExtra("getReaderDue").toString()
-            var getReaderReceive = intent.getStringExtra("getReaderReceive").toString()
+        override fun onBackPressed() { //뒤로가기시 NFC리더 페이지로
 
             val intent = Intent(this, nfc_reader::class.java)
-            intent.putExtra("getReaderId", getReaderId)
-            intent.putExtra("getReaderPwd", getReaderPwd)
-            intent.putExtra("getReaderAuth", getReaderAuth)
-            intent.putExtra("getReaderName", getReaderName)
-            intent.putExtra("getReaderMajor", getReaderMajor)
-            intent.putExtra("getReaderDepart", getReaderDepart)
-            intent.putExtra("getReaderProfile", getReaderProfile)
-            intent.putExtra("getReaderDue",getReaderDue)
-            intent.putExtra("getReaderReceive",getReaderReceive)
+
             startActivity(intent)
         }
 

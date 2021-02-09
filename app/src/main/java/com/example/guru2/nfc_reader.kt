@@ -59,7 +59,7 @@ class nfc_reader : Activity(), NfcAdapter.CreateNdefMessageCallback {
                 builder.show()
             }else { //제대로 태그 정보를 받아오면 받아온 아이디 값을 다음 액티비티로 전송
             var intent = Intent(this, admin_read_card::class.java)
-                intent.putExtra("getId",readId) //태그로 읽어온 아이디 값 전송
+                intent.putExtra("getId",readId) //태그로 읽어온 아이디 값 전송 readId값을 getId라는 이름의 변수로
                 startActivity(intent)
 
             }
