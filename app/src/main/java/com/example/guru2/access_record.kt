@@ -84,42 +84,6 @@ class access_record : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item?.itemId) {
-            R.id.action_home -> {
-                var getId = intent.getStringExtra("getId").toString()
-                var getPwd = intent.getStringExtra("getPwd").toString()
-                var getAuth = intent.getStringExtra("getAuth").toString()
-                var getName = intent.getStringExtra("getName").toString()
-                var getDepart = intent.getStringExtra("getDepart").toString()
-                var getMajor = intent.getStringExtra("getMajor").toString()
-                var getDue = intent.getStringExtra("getDue").toString()
-                var getReceive = intent.getStringExtra("getReceive").toString()
-                var getProfile = intent.getStringExtra("getProfile").toString()
-                val intent = Intent(this, idcard::class.java)
-                intent.putExtra("getId", getId)
-                intent.putExtra("getPwd", getPwd)
-                intent.putExtra("getAuth", getAuth)
-                intent.putExtra("getName", getName)
-                intent.putExtra("getMajor", getMajor)
-                intent.putExtra("getDepart", getDepart)
-                intent.putExtra("getDue", getDue)
-                intent.putExtra("getReceive", getReceive)
-                intent.putExtra("getProfile", getProfile)
-                startActivity(intent)
-                return true
-            }
-
-            R.id.pay -> {
-                if (isInstalledApp("com.nhnent.payapp")) {
-                    openApp("com.nhnent.payapp")
-                } else {
-                    val intentPlayStore = Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse("market://details?id=com.nhnent.payapp")
-                    ) // 설치 링크를 인텐트에 담아
-                    startActivity(intentPlayStore) // 플레이스토어로 이동시켜 설치유도.
-                }
-
-            }
             R.id.Logout -> {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
