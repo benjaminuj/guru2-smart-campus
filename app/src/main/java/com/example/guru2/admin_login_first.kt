@@ -9,7 +9,7 @@ import android.view.MenuItem
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 
-class admin_login_first : AppCompatActivity() {
+class admin_login_first : AppCompatActivity() { ////////관리자 로그인 첫 페이지
     lateinit var btnReader :Button
     lateinit var btnRecord :Button
     lateinit var btnAttend : Button
@@ -21,7 +21,7 @@ class admin_login_first : AppCompatActivity() {
         btnReader = findViewById(R.id.btnCard) //리더기 버튼
         btnAttend = findViewById(R.id.btnPay) //출결확인 버튼
         btnRecord = findViewById(R.id.btnLogout)
-        var getId = intent.getStringExtra("getId").toString()
+        var getId = intent.getStringExtra("getId").toString()      ////로그인 창에서 보낸 변수 받기
         var getPwd = intent.getStringExtra("getPwd").toString()
         var getAuth = intent.getStringExtra("getAuth").toString()
         var getName = intent.getStringExtra("getName").toString()
@@ -35,7 +35,7 @@ class admin_login_first : AppCompatActivity() {
 
         //출결확인 버튼
         btnAttend.setOnClickListener {
-            if(getAuth =="1"){
+            if(getAuth =="1"){      //권한이 1(학생회)이면 권한없음 대화상자
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle("알림!")
                 builder.setMessage("출결 확인 권한이 없습니다.")
@@ -60,8 +60,10 @@ class admin_login_first : AppCompatActivity() {
 
         }
 
+
+        ////////출입기록 버튼
         btnRecord.setOnClickListener {
-            if(getAuth =="1"){
+            if(getAuth =="1"){   //권한이 1(학생회)이면 권한없음 대화상자
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle("알림!")
                 builder.setMessage("출입 기록 확인 권한이 없습니다.")
@@ -87,19 +89,19 @@ class admin_login_first : AppCompatActivity() {
         }
 
 
-        //리더기 버튼
+        ///////////리더기 버튼
         btnReader.setOnClickListener {
 
             var intent = Intent(this, nfc_reader::class.java)
-            intent.putExtra("getRederId", getId)
-            intent.putExtra("getRederPwd", getPwd)
-            intent.putExtra("getRederAuth", getAuth)
-            intent.putExtra("getRederName", getName)
-            intent.putExtra("getRederMajor", getMajor)
-            intent.putExtra("getRederDepart", getDepart)
-            intent.putExtra("getRederDue",getDue)
-            intent.putExtra("getRederReceive",getReceive)
-            intent.putExtra("getRederProfile",getProfile)
+            intent.putExtra("getReaderId", getId)
+            intent.putExtra("getReaderPwd", getPwd)
+            intent.putExtra("getReaderAuth", getAuth)
+            intent.putExtra("getReaderName", getName)
+            intent.putExtra("getReaderMajor", getMajor)
+            intent.putExtra("getReaderDepart", getDepart)
+            intent.putExtra("getReaderDue",getDue)
+            intent.putExtra("getReaderReceive",getReceive)
+            intent.putExtra("getReaderProfile",getProfile)
             startActivity(intent)
 
         }

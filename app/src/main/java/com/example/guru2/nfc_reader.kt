@@ -25,30 +25,22 @@ class nfc_reader : Activity(), NfcAdapter.CreateNdefMessageCallback {
 
         btnLoad = findViewById(R.id.btnLoad)
 
-        var getRederId = intent.getStringExtra("getRederId").toString()
-        var getRederPwd = intent.getStringExtra("getRederPwd").toString()
-        var getRederAuth = intent.getStringExtra("getRederAuth").toString()
-        var getRederName = intent.getStringExtra("getRederName").toString()
-        var getRederDepart = intent.getStringExtra("getRederDepart").toString()
-        var getRederMajor = intent.getStringExtra("getRederMajor").toString()
-        var getRederProfile = intent.getStringExtra("getRederProfile").toString()
-        var getRederDue = intent.getStringExtra("getRederDue").toString()
-        var getRederReceive = intent.getStringExtra("getRederReceive").toString()
 
 
-
-        // Check for available NFC Adapter
+        //nfc가 실행가능한지 확인
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
         if (nfcAdapter == null) {
-            Toast.makeText(this, "NFC is not available", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "NFC 사용이 불가능합니다. NFC를 켜고 다시 실행해주세요.", Toast.LENGTH_LONG).show()
             finish()
             return
         }
         // Register callback
         nfcAdapter?.setNdefPushMessageCallback(this, this)
 
+
+        //정보 불러오기 버튼을 클릭했을 시
         btnLoad.setOnClickListener {
-            if(readId == ""){
+            if(readId == ""){  //읽어온 아이디 값이 없으면 대화상자
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle("알림!")
                 builder.setMessage("학생 정보를 불러오지 못했습니다. 다시 태그해주세요.")
@@ -57,7 +49,7 @@ class nfc_reader : Activity(), NfcAdapter.CreateNdefMessageCallback {
                 })
                 builder.show()
             }
-            else if(readId =="리더기"){
+            else if(readId =="리더기"){ //메시지를 송신한 측이 리더기 쪽이면 대화상자
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle("알림!")
                 builder.setMessage("올바른 아이디 카드가 아닙니다. 다시 태그해주세요.")
@@ -65,18 +57,8 @@ class nfc_reader : Activity(), NfcAdapter.CreateNdefMessageCallback {
                 builder.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
                 })
                 builder.show()
-            }else{
-                var intent = Intent(this, admin_read_card::class.java)
-                //리드한 유저의 정보 전송
-                intent.putExtra("getRederId", getRederId)
-                intent.putExtra("getRederPwd", getRederPwd)
-                intent.putExtra("getRederAuth", getRederAuth)
-                intent.putExtra("getRederName", getRederName)
-                intent.putExtra("getRederMajor", getRederMajor)
-                intent.putExtra("getRederDepart", getRederDepart)
-                intent.putExtra("getRederProfile", getRederProfile)
-                intent.putExtra("getRederDue",getRederDue)
-                intent.putExtra("getRederReceive",getRederReceive)
+            }else { //제대로 태그 정보를 받아오면 받아온 아이디 값을 다음 액티비티로 전송
+            var intent = Intent(this, admin_read_card::class.java)
                 intent.putExtra("getId",readId) //태그로 읽어온 아이디 값 전송
                 startActivity(intent)
 
@@ -85,89 +67,38 @@ class nfc_reader : Activity(), NfcAdapter.CreateNdefMessageCallback {
 
     }
 
-
-
-
-
-
-
-    override fun createNdefMessage(event: NfcEvent): NdefMessage {
-
+    override fun createNdefMessage(event: NfcEvent): NdefMessage { //리더기에서 메시지 전송될 때는 리더기라는 메시지를 담아 전송하여 오류 대화상자를 띄우게 함
         val text = "리더기"
         return NdefMessage(
             arrayOf(
                 NdefRecord.createMime("application/vnd.com.example.android.beam", text.toByteArray())
             )
-            /**
-             * The Android Application Record (AAR) is commented out. When a device
-             * receives a push with an AAR in it, the application specified in the AAR
-             * is guaranteed to run. The AAR overrides the tag dispatch system.
-             * You can add it back in to guarantee that this
-             * activity starts when receiving a beamed message. For now, this code
-             * uses the tag dispatch system.
-             */
-            /**
-             * The Android Application Record (AAR) is commented out. When a device
-             * receives a push with an AAR in it, the application specified in the AAR
-             * is guaranteed to run. The AAR overrides the tag dispatch system.
-             * You can add it back in to guarantee that this
-             * activity starts when receiving a beamed message. For now, this code
-             * uses the tag dispatch system.
-             *///NdefRecord.createApplicationRecord("com.example.android.beam")
         )
     }
 
-    override fun onResume() {
+    override fun onResume() { //안드로이드 빔으로 인해 활동이 시작되었는지 확인
         super.onResume()
-        // Check to see that the Activity started due to an Android Beam
         if (NfcAdapter.ACTION_NDEF_DISCOVERED == intent.action) {
             processIntent(intent)
         }
     }
 
     override fun onNewIntent(intent: Intent) {
-        // onResume gets called after this to handle the intent
         setIntent(intent)
     }
-
-    /**
-     * Parses the NDEF Message from the intent and prints to the TextView
-     */
-    private fun processIntent(intent: Intent) {
-        // only one message sent during the beam
+    private fun processIntent(intent: Intent) { //nfc로 받아온 메시지를 readId에 저장
         intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)?.also { rawMsgs ->
             (rawMsgs[0] as NdefMessage).apply {
-                // record 0 contains the MIME type, record 1 is the AAR, if present
                 readId=String(records[0].payload)
+
 
 
             }
         }
     }
 
-    override fun onBackPressed() {
-        var getRederId = intent.getStringExtra("getRederId").toString()
-        var getRederPwd = intent.getStringExtra("getRederPwd").toString()
-        var getRederAuth = intent.getStringExtra("getRederAuth").toString()
-        var getRederName = intent.getStringExtra("getRederName").toString()
-        var getRederDepart = intent.getStringExtra("getRederDepart").toString()
-        var getRederMajor = intent.getStringExtra("getRederMajor").toString()
-        var getRederProfile = intent.getStringExtra("getRederProfile").toString()
-        var getRederDue = intent.getStringExtra("getRederDue").toString()
-        var getRederReceive = intent.getStringExtra("getRederReceive").toString()
-
-
+    override fun onBackPressed() { //뒤로가기 시 관리자 로그인 첫페이지로
         val intent = Intent(this,admin_login_first::class.java)
-        intent.putExtra("getId", getRederId)
-        intent.putExtra("getPwd", getRederPwd)
-        intent.putExtra("getAuth", getRederAuth)
-        intent.putExtra("getName", getRederName)
-        intent.putExtra("getMajor", getRederMajor)
-        intent.putExtra("getDepart", getRederDepart)
-        intent.putExtra("getProfile", getRederProfile)
-        intent.putExtra("getDue",getRederDue)
-        intent.putExtra("getReceive",getRederReceive)
-
         startActivity(intent)
     }
 

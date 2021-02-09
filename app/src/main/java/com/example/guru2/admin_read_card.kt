@@ -42,8 +42,6 @@ class admin_read_card : AppCompatActivity() {
         imgProfile = findViewById(R.id.ImgView)
         btnReceive = findViewById(R.id.btnReceive)
         var getDepart: String = ""
-        var getAuth = ""
-        var getPwd = ""
         var getName = ""
         var getDue = ""
         var getProfile = ""
@@ -56,12 +54,10 @@ class admin_read_card : AppCompatActivity() {
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {
-                getAuth = snapshot.child("auth").value.toString()
                 getDepart = snapshot.child("depart").value.toString()
                 getDue = snapshot.child("due").value.toString()
                 getMajor = snapshot.child("major").value.toString()
                 getName = snapshot.child("name").value.toString()
-                getPwd = snapshot.child("password").value.toString()
                 getProfile = snapshot.child("profile").value.toString()
                 getReceive = snapshot.child("receive").value.toString()
             }
@@ -77,8 +73,8 @@ class admin_read_card : AppCompatActivity() {
 
         Handler().postDelayed(Runnable {
 
-            tvDepart1.setText(getDepart)
-            tvMajor1.setText(getMajor)
+            tvDepart1.text = getDepart
+            tvMajor1.text = getMajor
             tvName1.setText(getName)
             tvId1.setText(getId)
             if(getProfile != "")
@@ -113,26 +109,26 @@ class admin_read_card : AppCompatActivity() {
 
         override fun onBackPressed() {
 
-            var getRederId = intent.getStringExtra("getRederId").toString()
-            var getRederPwd = intent.getStringExtra("getRederPwd").toString()
-            var getRederAuth = intent.getStringExtra("getRederAuth").toString()
-            var getRederName = intent.getStringExtra("getRederName").toString()
-            var getRederDepart = intent.getStringExtra("getRederDepart").toString()
-            var getRederMajor = intent.getStringExtra("getRederMajor").toString()
-            var getRederProfile = intent.getStringExtra("getRederProfile").toString()
-            var getRederDue = intent.getStringExtra("getRederDue").toString()
-            var getRederReceive = intent.getStringExtra("getRederReceive").toString()
+            var getReaderId = intent.getStringExtra("getReaderId").toString()
+            var getReaderPwd = intent.getStringExtra("getReaderPwd").toString()
+            var getReaderAuth = intent.getStringExtra("getReaderAuth").toString()
+            var getReaderName = intent.getStringExtra("getReaderName").toString()
+            var getReaderDepart = intent.getStringExtra("getReaderDepart").toString()
+            var getReaderMajor = intent.getStringExtra("getReaderMajor").toString()
+            var getReaderProfile = intent.getStringExtra("getReaderProfile").toString()
+            var getReaderDue = intent.getStringExtra("getReaderDue").toString()
+            var getReaderReceive = intent.getStringExtra("getReaderReceive").toString()
 
             val intent = Intent(this, nfc_reader::class.java)
-            intent.putExtra("getRederId", getRederId)
-            intent.putExtra("getRederPwd", getRederPwd)
-            intent.putExtra("getRederAuth", getRederAuth)
-            intent.putExtra("getRederName", getRederName)
-            intent.putExtra("getRederMajor", getRederMajor)
-            intent.putExtra("getRederDepart", getRederDepart)
-            intent.putExtra("getRederProfile", getRederProfile)
-            intent.putExtra("getRederDue", getRederDue)
-            intent.putExtra("getRederReceive", getRederReceive)
+            intent.putExtra("getReaderId", getReaderId)
+            intent.putExtra("getReaderPwd", getReaderPwd)
+            intent.putExtra("getReaderAuth", getReaderAuth)
+            intent.putExtra("getReaderName", getReaderName)
+            intent.putExtra("getReaderMajor", getReaderMajor)
+            intent.putExtra("getReaderDepart", getReaderDepart)
+            intent.putExtra("getReaderProfile", getReaderProfile)
+            intent.putExtra("getReaderDue",getReaderDue)
+            intent.putExtra("getReaderReceive",getReaderReceive)
             startActivity(intent)
         }
 

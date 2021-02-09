@@ -10,6 +10,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
+import kotlin.system.exitProcess
 
 class login_first : AppCompatActivity() {
     lateinit var btnCard :Button
@@ -23,15 +25,12 @@ class login_first : AppCompatActivity() {
         btnCard = findViewById(R.id.btnCard) //리더기 버튼
         btnPay= findViewById(R.id.btnPay) //출결확인 버튼
         btnLogout = findViewById(R.id.btnLogout)
+        //변수 받아옴
         var getId = intent.getStringExtra("getId").toString()
-        var getPwd = intent.getStringExtra("getPwd").toString()
-        var getAuth = intent.getStringExtra("getAuth").toString()
         var getName = intent.getStringExtra("getName").toString()
         var getDepart = intent.getStringExtra("getDepart").toString()
         var getMajor = intent.getStringExtra("getMajor").toString()
         var getProfile = intent.getStringExtra("getProfile").toString()
-        var getDue = intent.getStringExtra("getDue").toString()
-        var getReceive = intent.getStringExtra("getReceive").toString()
 
 
 
@@ -40,66 +39,38 @@ class login_first : AppCompatActivity() {
 
                 var intent = Intent(this, idcard::class.java)
                 intent.putExtra("getId", getId)
-                intent.putExtra("getPwd", getPwd)
-                intent.putExtra("getAuth", getAuth)
                 intent.putExtra("getName", getName)
                 intent.putExtra("getMajor", getMajor)
                 intent.putExtra("getDepart", getDepart)
-                intent.putExtra("getDue",getDue)
-                intent.putExtra("getReceive",getReceive)
                 intent.putExtra("getProfile",getProfile)
                 startActivity(intent)
 
 
         }
 
-        btnPay.setOnClickListener {
-            if (isInstalledApp("com.nhnent.payapp"))
+        btnPay.setOnClickListener { //결제버튼 클릭시
+            if (isInstalledApp("com.nhnent.payapp"))//외부어플(페이코)이 설치되었는지 확인
             {
                 openApp("com.nhnent.payapp")
-            }else{
+            }else{                                              //설치되어있지 않으면 플레이스토어로 이동시켜 설치유도
                 val intentPlayStore = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.nhnent.payapp")) // 설치 링크를 인텐트에 담아
-                startActivity(intentPlayStore) // 플레이스토어로 이동시켜 설치유도.
+                startActivity(intentPlayStore)
             }
-            fun onBackPressed() {
-                var intent = Intent(this, this::class.java)
-                intent.putExtra("getId", getId)
-                intent.putExtra("getPwd", getPwd)
-                intent.putExtra("getAuth", getAuth)
-                intent.putExtra("getName", getName)
-                intent.putExtra("getMajor", getMajor)
-                intent.putExtra("getDepart", getDepart)
-                intent.putExtra("getDue",getDue)
-                intent.putExtra("getReceive",getReceive)
-                intent.putExtra("getProfile",getProfile)
-            }
+
+            ActivityCompat.finishAffinity(this)
+            exitProcess(0)
         }
 
 
         //리더기 버튼
-        btnLogout.setOnClickListener {
+        btnLogout.setOnClickListener { //로그아웃 기능 - 로그인 화면으로
             var intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
 
         }
     }
-/*
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.admin_login_first,menu)
-        return true
-    }
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item?.itemId){
-            R.id.Logout-> {
-                val intent = Intent(this,MainActivity::class.java)
-                startActivity(intent)
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-*/
-    fun Context.isInstalledApp(packageName: String): Boolean {
+
+    fun Context.isInstalledApp(packageName: String): Boolean { //앱이 설치되었는지 확인하는 함수
         val intent = packageManager.getLaunchIntentForPackage(packageName)
         return intent != null
     }
@@ -108,7 +79,7 @@ class login_first : AppCompatActivity() {
         startActivity(intent)
     }
 
-    override fun onBackPressed() {
+    override fun onBackPressed() { //뒤로가기 기능 - 로그인 화면으로
         val intent = Intent(this,MainActivity::class.java)
         startActivity(intent)
     }
