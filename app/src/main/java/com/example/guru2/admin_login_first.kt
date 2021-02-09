@@ -41,11 +41,7 @@ class admin_login_first : AppCompatActivity() { ////////관리자 로그인 첫 
                 builder.show()
             }else {
                 var intent = Intent(this, attend_confirm::class.java)
-                intent.putExtra("getId", getId)
-                intent.putExtra("getAuth", getAuth)
                 intent.putExtra("getName", getName)
-                intent.putExtra("getMajor", getMajor)
-                intent.putExtra("getDepart", getDepart)
                 startActivity(intent)
             }
 
@@ -65,11 +61,6 @@ class admin_login_first : AppCompatActivity() { ////////관리자 로그인 첫 
                 builder.show()
             }else {
                 var intent = Intent(this, access_record::class.java)
-                intent.putExtra("getId", getId)
-                intent.putExtra("getAuth", getAuth)
-                intent.putExtra("getName", getName)
-                intent.putExtra("getMajor", getMajor)
-                intent.putExtra("getDepart", getDepart)
                 startActivity(intent)
             }
 
@@ -85,14 +76,15 @@ class admin_login_first : AppCompatActivity() { ////////관리자 로그인 첫 
         }
     }
 
+    // 메뉴 생성
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.admin_login_first,menu)
         return true
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item?.itemId){
-            R.id.Logout-> {
-                val intent = Intent(this,MainActivity::class.java)
+            R.id.Logout-> { // 로그아웃 선택 시
+                val intent = Intent(this,MainActivity::class.java) // 로그인 화면으로 이동
                 startActivity(intent)
                 return true
             }
@@ -101,8 +93,8 @@ class admin_login_first : AppCompatActivity() { ////////관리자 로그인 첫 
     }
 
 
-    override fun onBackPressed() {
-        val intent = Intent(this,MainActivity::class.java)
+    override fun onBackPressed() { // 뒤로가기 버튼
+        val intent = Intent(this,MainActivity::class.java) // 로그인 화면으로 이동
         startActivity(intent)
     }
 

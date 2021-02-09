@@ -1,19 +1,14 @@
 package com.example.guru2
 
-import android.content.Context
 import android.content.Intent
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteOpenHelper
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Parcel
-import android.os.Parcelable
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.*
-import org.w3c.dom.Text
+
 
 class access_record : AppCompatActivity() {
 
@@ -76,7 +71,7 @@ class access_record : AppCompatActivity() {
         }
     }
 
-
+    // 메뉴 생성
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.access_record_menu, menu)
         return true
@@ -84,25 +79,14 @@ class access_record : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item?.itemId) {
-            R.id.Logout -> {
-                val intent = Intent(this, MainActivity::class.java)
+            R.id.Logout -> { // 로그아웃 선택 시
+                val intent = Intent(this, MainActivity::class.java) // 로그인 화면으로 이동
                 startActivity(intent)
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
     }
-
-    fun Context.isInstalledApp(packageName: String): Boolean {
-        val intent = packageManager.getLaunchIntentForPackage(packageName)
-        return intent != null
-    }
-
-    fun Context.openApp(packageName: String) { // 특정 앱을 실행하는 함수
-        val intent = packageManager.getLaunchIntentForPackage(packageName)
-        startActivity(intent)
-    }
-
 
 }
 

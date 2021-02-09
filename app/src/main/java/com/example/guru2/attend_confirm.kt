@@ -1,6 +1,8 @@
 package com.example.guru2
 
 import android.app.DatePickerDialog
+import android.database.Cursor
+import android.database.sqlite.SQLiteDatabase
 import android.icu.util.Calendar
 import android.os.Build
 import android.os.Bundle
@@ -8,74 +10,171 @@ import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.example.guru2.R
+
 
 class attend_confirm : AppCompatActivity() {
 
-    lateinit var btnResult:Button
-    lateinit var spinner: Spinner
-    lateinit var btnclassDate:Button
-    lateinit var classDateView : TextView
+    lateinit var tvProfessor: TextView // 교수명 출력 텍스트뷰
+    lateinit var btnResult:Button // 조회 버튼
+    lateinit var spinner: Spinner // 강의명 선택 스피너
+    lateinit var btnclassDate:Button // 날짜 선택 버튼
+
+    // DB 클래스 객체 생성
+    lateinit var myHelper: DBHelper
+    lateinit var sqlDB: SQLiteDatabase
+
+    // 스크롤뷰에 출력할 텍스트뷰
+    lateinit var timeResult2: TextView
+    lateinit var nameResult2: TextView
+    lateinit var idResult2: TextView
+    lateinit var majorResult2: TextView
+
+    // DB에서 정보 검색 위한 문자열 담을 공간 생성
+    var strSpot: String ?= ""
+    var strDate: String ?= ""
 
     //스피너 항목준비
-    var list_of_items = arrayOf("데이타베이스", "C프로그래밍", "자바프로그래밍", "모바일보안")
+    var listLecture = mutableListOf<String>()
 
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
-        title = " "
+        setTitle("출결 확인")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_attend_confirm)
+
+        // xml 객체 연결
+        tvProfessor = findViewById(R.id.tvProfessor)
         spinner = findViewById(R.id.spinner)
         btnResult = findViewById(R.id.btnResult)
         btnclassDate = findViewById(R.id.btnclassDate)
-        classDateView = findViewById(R.id.classDateView)
 
-        if (::spinner.isInitialized) {
-            //어답터 설정 - 안드로이드에서 제공하는 어답터를 연결
-            spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, list_of_items)
+        timeResult2 = findViewById(R.id.timeResult2)
+        nameResult2 = findViewById(R.id.nameResult2)
+        idResult2 = findViewById(R.id.idResult2)
+        majorResult2 = findViewById(R.id.majorResult2)
 
-            //아이템 선택 리스너
-            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onNothingSelected(p0: AdapterView<*>?) {
-                    println("과목을 선택하세요.")
+        // 교수님 성함 가져오기
+        var getName = intent.getStringExtra("getName").toString()
+
+        // 텍스트뷰 글자 설정(교수님 성함)
+        tvProfessor.setText(getName+"교수")
+
+        // DB 클래스 객체 생성
+        myHelper = DBHelper(this)
+        sqlDB = myHelper.readableDatabase
+
+        // 커서 선언, 테이블 조회 후 대입
+        val cursor1: Cursor = sqlDB.rawQuery("SELECT professor, lecture FROM lec_info;", null)
+
+        // lec_info 테이블에서 이름이 일치하는 교수의 강의명 불러오기
+        while (cursor1.moveToNext()){
+            if (getName == cursor1.getString(0)) {
+                listLecture.add(cursor1.getString(1)) // 스피너 항목에 대입
+            }
+            //Toast.makeText(this, "강의명 불러옴", Toast.LENGTH_SHORT).show()
+        }
+        cursor1.close()
+        sqlDB.close()
+
+        // 스피너 어댑터 연결
+       spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, listLecture)
+
+        // 스피너 아이템 선택 리스너
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) { // 선택되지 않았을 때
+                Toast.makeText(this@attend_confirm, "강의를 선택하세요", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long
+            ) {
+                // 교수명, 강의실, 강의명으로 이뤄진 lec_info 테이블에서 교수명+강의명 필터링하여 강의실 찾기
+                sqlDB = myHelper.readableDatabase
+                val cursor2: Cursor = sqlDB.rawQuery("SELECT spot FROM lec_info " +
+                        "WHERE professor = '" + getName + "' AND lecture = '" + listLecture[position] + "';",
+                        null)
+
+                while(cursor2.moveToNext()){
+                    strSpot = cursor2.getString(0) // 강의실 정보 문자열에 저장
                 }
 
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
+                cursor2.close()
+                sqlDB.close()
+            }
+        }
 
+        // 날짜 선택 버튼
+        btnclassDate.setOnClickListener { view ->
+            var calendar = Calendar.getInstance()
+            var year = calendar.get(Calendar.YEAR)
+            var month = calendar.get(Calendar.MONTH)
+            var day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            var date_listener  = object : DatePickerDialog.OnDateSetListener {
+                override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+                    btnclassDate.setText("${month+1}월 ${dayOfMonth}일") // 날짜가 선택됨을 보여주기 위해 날짜 선택 버튼 텍스트를 날짜로 변경
+                    strDate = year.toString() + "-" + (month+1).toString() + "-" + dayOfMonth.toString() // DB에 저장한 형식에 맞게 날짜 문자열에 저장
                 }
-
-
-            }
-            //버튼 클릭 리스너
-            btnResult.setOnClickListener {
-                //현재 어떤 항목이 선택되어 있는지 어떻게 알지?
-                var myClassName = spinner.selectedItem
-                var MCL = Toast.makeText(this, "${myClassName}", Toast.LENGTH_SHORT)
-                MCL.show()
             }
 
-            btnclassDate.setOnClickListener { view ->
-                var calendar = Calendar.getInstance()
-                var year = calendar.get(Calendar.YEAR)
-                var month = calendar.get(Calendar.MONTH)
-                var day = calendar.get(Calendar.DAY_OF_MONTH)
+            var builder = DatePickerDialog(this, date_listener, year, month, day)
+            builder.show() // 대화상자를 보임
 
-                var date_listener  = object : DatePickerDialog.OnDateSetListener {
-                    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-                        classDateView.text =  "${year}년 ${month + 1}월 ${dayOfMonth}일"
+        }
+
+        // 조회 버튼
+        btnResult.setOnClickListener {
+
+            if (strDate==""||spinner.adapter.isEmpty) { // 날짜나 강의명이 선택되지 않았을 때
+
+                Toast.makeText(this, "강의 정보를 선택해주세요", Toast.LENGTH_SHORT).show()
+
+            } else { // 정상적으로 선택되었을 때
+
+                // 강의실+날짜 정보로 전체 학생 출입 기록 테이블에서 정보 찾기
+                sqlDB = myHelper.readableDatabase
+                val cursor3: Cursor = sqlDB.rawQuery("SELECT time, name, id, major FROM entry " +
+                        "WHERE date = '"+strDate+"' AND spot = '"+strSpot+"';", null)
+
+                // 시간, 이름, 학번, 학과 나타낼 문자열 선언
+                var strTime = ""
+                var strName = ""
+                var strId = ""
+                var strMajor = ""
+
+                if (cursor3.count == 0){ // 해당하는 기록이 없을 때
+
+                    // 오류 토스트 메시지 출력
+                    Toast.makeText(this, "강의 정보를 다시 입력하세요", Toast.LENGTH_SHORT).show()
+
+                    // 빈칸 출력
+                    timeResult2.setText("")
+                    nameResult2.setText("")
+                    idResult2.setText("")
+                    majorResult2.setText("")
+
+                } else { // 해당 기록이 있을 때
+
+                    while (cursor3.moveToNext()) {
+                        strTime = cursor3.getString(0) + "\r\n" + strTime // 최근 입력된 기록이 위로 오도록 문자열 저장
+                        strName = cursor3.getString(1) + "\r\n" + strName
+                        strId = cursor3.getString(2) + "\r\n" + strId
+                        strMajor = cursor3.getString(3) + "\r\n" + strMajor
                     }
+
+                    // 출력
+                    timeResult2.setText(strTime)
+                    nameResult2.setText(strName)
+                    idResult2.setText(strId)
+                    majorResult2.setText(strMajor)
+
+                    cursor3.close()
+                    sqlDB.close()
+
+                    Toast.makeText(this, "$strDate $strSpot 조회됨", Toast.LENGTH_SHORT).show()
                 }
-
-                var builder = DatePickerDialog(this, date_listener, year, month, day)
-                builder.show()
-
             }
+
         }
 
     }
