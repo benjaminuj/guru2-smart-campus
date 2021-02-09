@@ -1,15 +1,11 @@
 package com.example.guru2
 
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Button
-import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import kotlin.system.exitProcess
 
@@ -25,6 +21,7 @@ class login_first : AppCompatActivity() {
         btnCard = findViewById(R.id.btnCard) //리더기 버튼
         btnPay= findViewById(R.id.btnPay) //출결확인 버튼
         btnLogout = findViewById(R.id.btnLogout)
+
         //변수 받아옴
         var getId = intent.getStringExtra("getId").toString()
         var getName = intent.getStringExtra("getName").toString()
@@ -34,9 +31,9 @@ class login_first : AppCompatActivity() {
 
 
 
-        //출결확인 버튼
+        //아이디카드 버튼
         btnCard.setOnClickListener {
-
+                //메인 액티비티에서 받아온 값 그대로 전달
                 var intent = Intent(this, idcard::class.java)
                 intent.putExtra("getId", getId)
                 intent.putExtra("getName", getName)
@@ -56,7 +53,7 @@ class login_first : AppCompatActivity() {
                 val intentPlayStore = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.nhnent.payapp")) // 설치 링크를 인텐트에 담아
                 startActivity(intentPlayStore)
             }
-
+            //외부어플 실행 후 어플 종료
             ActivityCompat.finishAffinity(this)
             exitProcess(0)
         }
