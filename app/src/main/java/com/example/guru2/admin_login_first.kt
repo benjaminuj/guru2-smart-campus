@@ -22,14 +22,10 @@ class admin_login_first : AppCompatActivity() { ////////관리자 로그인 첫 
         btnAttend = findViewById(R.id.btnPay) //출결확인 버튼
         btnRecord = findViewById(R.id.btnLogout)
         var getId = intent.getStringExtra("getId").toString()      ////로그인 창에서 보낸 변수 받기
-        var getPwd = intent.getStringExtra("getPwd").toString()
         var getAuth = intent.getStringExtra("getAuth").toString()
         var getName = intent.getStringExtra("getName").toString()
         var getDepart = intent.getStringExtra("getDepart").toString()
         var getMajor = intent.getStringExtra("getMajor").toString()
-        var getProfile = intent.getStringExtra("getProfile").toString()
-        var getDue = intent.getStringExtra("getDue").toString()
-        var getReceive = intent.getStringExtra("getReceive").toString()
 
 
 
@@ -46,14 +42,10 @@ class admin_login_first : AppCompatActivity() { ////////관리자 로그인 첫 
             }else {
                 var intent = Intent(this, attend_confirm::class.java)
                 intent.putExtra("getId", getId)
-                intent.putExtra("getPwd", getPwd)
                 intent.putExtra("getAuth", getAuth)
                 intent.putExtra("getName", getName)
                 intent.putExtra("getMajor", getMajor)
                 intent.putExtra("getDepart", getDepart)
-                intent.putExtra("getDue",getDue)
-                intent.putExtra("getReceive",getReceive)
-                intent.putExtra("getProfile",getProfile)
                 startActivity(intent)
             }
 
@@ -74,14 +66,10 @@ class admin_login_first : AppCompatActivity() { ////////관리자 로그인 첫 
             }else {
                 var intent = Intent(this, access_record::class.java)
                 intent.putExtra("getId", getId)
-                intent.putExtra("getPwd", getPwd)
                 intent.putExtra("getAuth", getAuth)
                 intent.putExtra("getName", getName)
                 intent.putExtra("getMajor", getMajor)
                 intent.putExtra("getDepart", getDepart)
-                intent.putExtra("getDue",getDue)
-                intent.putExtra("getReceive",getReceive)
-                intent.putExtra("getProfile",getProfile)
                 startActivity(intent)
             }
 
@@ -91,17 +79,7 @@ class admin_login_first : AppCompatActivity() { ////////관리자 로그인 첫 
 
         ///////////리더기 버튼
         btnReader.setOnClickListener {
-
             var intent = Intent(this, nfc_reader::class.java)
-            intent.putExtra("getReaderId", getId)
-            intent.putExtra("getReaderPwd", getPwd)
-            intent.putExtra("getReaderAuth", getAuth)
-            intent.putExtra("getReaderName", getName)
-            intent.putExtra("getReaderMajor", getMajor)
-            intent.putExtra("getReaderDepart", getDepart)
-            intent.putExtra("getReaderDue",getDue)
-            intent.putExtra("getReaderReceive",getReceive)
-            intent.putExtra("getReaderProfile",getProfile)
             startActivity(intent)
 
         }

@@ -141,6 +141,7 @@ class MainActivity : AppCompatActivity() { ///어플 실행시 첫 화면(로그
                             intent.putExtra("getMajor", getMajor)
                             intent.putExtra("getDepart", getDepart)
                             intent.putExtra("getProfile", getProfile)
+                            intent.putExtra("getAuth",getAuth)
                             startActivity(intent)       ///관리자 로그인 첫 페이지 실행
 
                         } else {   //입력된 아이디 비밀번호와 서버의 db에서 검색해 받아온 값이 같지만 권한이 0(일반학생)일 경우 대화상자
