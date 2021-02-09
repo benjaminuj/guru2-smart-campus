@@ -1,7 +1,9 @@
 package com.example.guru2
 
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -9,18 +11,18 @@ import android.view.MenuItem
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 
-class admin_login_first : AppCompatActivity() {
-    lateinit var btnReader :Button
-    lateinit var btnRecord :Button
-    lateinit var btnAttend : Button
+class login_first : AppCompatActivity() {
+    lateinit var btnCard :Button
+    lateinit var btnPay :Button
+    lateinit var btnLogout : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTitle("")
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_admin_login_first)
-        btnReader = findViewById(R.id.btnCard) //리더기 버튼
-        btnAttend = findViewById(R.id.btnPay) //출결확인 버튼
-        btnRecord = findViewById(R.id.btnLogout)
+        setContentView(R.layout.activity_login_first)
+        btnCard = findViewById(R.id.btnCard) //리더기 버튼
+        btnPay= findViewById(R.id.btnPay) //출결확인 버튼
+        btnLogout = findViewById(R.id.btnLogout)
         var getId = intent.getStringExtra("getId").toString()
         var getPwd = intent.getStringExtra("getPwd").toString()
         var getAuth = intent.getStringExtra("getAuth").toString()
@@ -34,17 +36,9 @@ class admin_login_first : AppCompatActivity() {
 
 
         //출결확인 버튼
-        btnAttend.setOnClickListener {
-            if(getAuth =="1"){
-                val builder = AlertDialog.Builder(this)
-                builder.setTitle("알림!")
-                builder.setMessage("출결 확인 권한이 없습니다.")
-                builder.setIcon(R.drawable.symbol)
-                builder.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
-                })
-                builder.show()
-            }else {
-                var intent = Intent(this, attend_confirm::class.java)
+        btnCard.setOnClickListener {
+
+                var intent = Intent(this, idcard::class.java)
                 intent.putExtra("getId", getId)
                 intent.putExtra("getPwd", getPwd)
                 intent.putExtra("getAuth", getAuth)
@@ -55,22 +49,20 @@ class admin_login_first : AppCompatActivity() {
                 intent.putExtra("getReceive",getReceive)
                 intent.putExtra("getProfile",getProfile)
                 startActivity(intent)
-            }
 
 
         }
 
-        btnRecord.setOnClickListener {
-            if(getAuth =="1"){
-                val builder = AlertDialog.Builder(this)
-                builder.setTitle("알림!")
-                builder.setMessage("출입 기록 확인 권한이 없습니다.")
-                builder.setIcon(R.drawable.symbol)
-                builder.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
-                })
-                builder.show()
-            }else {
-                var intent = Intent(this, access_record::class.java)
+        btnPay.setOnClickListener {
+            if (isInstalledApp("com.nhnent.payapp"))
+            {
+                openApp("com.nhnent.payapp")
+            }else{
+                val intentPlayStore = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.nhnent.payapp")) // 설치 링크를 인텐트에 담아
+                startActivity(intentPlayStore) // 플레이스토어로 이동시켜 설치유도.
+            }
+            fun onBackPressed() {
+                var intent = Intent(this, this::class.java)
                 intent.putExtra("getId", getId)
                 intent.putExtra("getPwd", getPwd)
                 intent.putExtra("getAuth", getAuth)
@@ -80,31 +72,18 @@ class admin_login_first : AppCompatActivity() {
                 intent.putExtra("getDue",getDue)
                 intent.putExtra("getReceive",getReceive)
                 intent.putExtra("getProfile",getProfile)
-                startActivity(intent)
             }
-
-
         }
 
 
         //리더기 버튼
-        btnReader.setOnClickListener {
-
-            var intent = Intent(this, nfc_reader::class.java)
-            intent.putExtra("getRederId", getId)
-            intent.putExtra("getRederPwd", getPwd)
-            intent.putExtra("getRederAuth", getAuth)
-            intent.putExtra("getRederName", getName)
-            intent.putExtra("getRederMajor", getMajor)
-            intent.putExtra("getRederDepart", getDepart)
-            intent.putExtra("getRederDue",getDue)
-            intent.putExtra("getRederReceive",getReceive)
-            intent.putExtra("getRederProfile",getProfile)
+        btnLogout.setOnClickListener {
+            var intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
 
         }
     }
-
+/*
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.admin_login_first,menu)
         return true
@@ -119,7 +98,15 @@ class admin_login_first : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
+*/
+    fun Context.isInstalledApp(packageName: String): Boolean {
+        val intent = packageManager.getLaunchIntentForPackage(packageName)
+        return intent != null
+    }
+    fun Context.openApp(packageName: String) { // 특정 앱을 실행하는 함수
+        val intent = packageManager.getLaunchIntentForPackage(packageName)
+        startActivity(intent)
+    }
 
     override fun onBackPressed() {
         val intent = Intent(this,MainActivity::class.java)

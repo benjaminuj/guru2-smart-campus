@@ -16,11 +16,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GURU2">
-        <activity android:name=".attend_confirm"> </activity>
+        <activity android:name=".login_first"></activity>
+        <activity android:name=".attend_confirm"></activity>
         <activity android:name=".admin_read_card" />
-
         <activity android:name=".access_record" />
-        <activity android:name=".idcard" >
+        <activity android:name=".idcard">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
 
@@ -29,7 +29,8 @@
                 <data android:mimeType="application/vnd.com.example.android.beam" />
 
                 <action android:name="android.nfc.action.TECH_DISCOVERED" />
-            </intent-filter></activity>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".admin_login_first"
             android:parentActivityName=".MainActivity" />
@@ -40,9 +41,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!-- intent filter 추가함 -->
-        <activity android:name=".nfc_reader" >
+        </activity> <!-- intent filter 추가함 -->
+        <activity android:name=".nfc_reader">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
 

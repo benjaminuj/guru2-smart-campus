@@ -8,36 +8,48 @@
     android:orientation="vertical"
     tools:context=".idcard">
 
+
     <ImageView
-        android:id="@+id/ivImage"
-        android:layout_width="198dp"
-        android:layout_height="215dp"
-        android:layout_marginTop="44dp"
+        android:id="@+id/ImgView"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="64dp"
         android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.098"
+        app:layout_constraintHorizontal_bias="0.069"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/person" />
 
     <TextView
-        android:id="@+id/tvId"
-        android:layout_width="wrap_content"
+        android:id="@+id/tvMajor"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:text="학번"
+        android:padding="10dp"
+        android:text="학과"
         android:textAlignment="center"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/tvMajor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.86"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ivImage"
-        app:layout_constraintVertical_bias="0.98" />
+        app:layout_constraintEnd_toEndOf="@+id/tvId"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tvId"
+        app:layout_constraintTop_toBottomOf="@+id/tvId" />
+
+    <TextView
+        android:id="@+id/tvDepart"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="학부"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvMajor"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tvMajor"
+        app:layout_constraintTop_toBottomOf="@+id/tvMajor" />
 
     <TextView
         android:id="@+id/tvName"
-        android:layout_width="wrap_content"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:padding="10dp"
@@ -45,72 +57,58 @@
         android:textAlignment="center"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/tvId"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.827"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/money"
+        app:layout_constraintHorizontal_bias="0.651"
+        app:layout_constraintStart_toStartOf="@+id/money"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/tvDepart"
-        android:layout_width="wrap_content"
+        android:id="@+id/tvId"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:padding="10dp"
-        android:text="학부"
+        android:padding="20dp"
+        android:text="학번"
         android:textAlignment="center"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.827"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvMajor" />
-
-    <TextView
-        android:id="@+id/tvMajor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="52dp"
-        android:padding="10dp"
-        android:text="학과"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvId" />
-
+        app:layout_constraintBottom_toTopOf="@+id/tvMajor"
+        app:layout_constraintEnd_toEndOf="@+id/money"
+        app:layout_constraintHorizontal_bias="0.645"
+        app:layout_constraintStart_toStartOf="@+id/money"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.98" />
 
     <Button
-        android:id="@+id/btnpti"
+        android:id="@+id/btnReceive"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="256dp"
-        android:layout_marginBottom="176dp"
+        android:layout_marginBottom="200dp"
         android:text="참여"
         android:textColor="#FFFFFF"
         app:backgroundTint="#404040"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/textView5"
+        app:layout_constraintStart_toStartOf="@+id/textView5" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="103dp"
         android:text="행사 참여 여부 : "
-        app:layout_constraintEnd_toStartOf="@+id/participate"
+        app:layout_constraintEnd_toEndOf="@+id/tvDue"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnpti" />
+        app:layout_constraintTop_toBottomOf="@+id/btnReceive" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tvDue"
         android:layout_width="115dp"
         android:layout_height="20dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="239dp"
-        android:text="학생회비 납부 여부"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:text="학생회비 납부 여부:"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -120,25 +118,23 @@
         android:id="@+id/participate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/money"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/ivImage"
+        android:text="null"
+        app:layout_constraintBottom_toBottomOf="@+id/textView5"
+        app:layout_constraintEnd_toEndOf="@+id/money"
+        app:layout_constraintStart_toStartOf="@+id/money"
+        app:layout_constraintTop_toTopOf="@+id/textView5"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/money"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginEnd="75dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="50dp"
+        android:text="null"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDue"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/participate" />
+        app:layout_constraintHorizontal_bias="0.878"
+        app:layout_constraintStart_toEndOf="@+id/tvDue"
+        app:layout_constraintTop_toTopOf="@+id/tvDue" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

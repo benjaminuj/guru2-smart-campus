@@ -25,6 +25,16 @@ class nfc_reader : Activity(), NfcAdapter.CreateNdefMessageCallback {
 
         btnLoad = findViewById(R.id.btnLoad)
 
+        var getRederId = intent.getStringExtra("getRederId").toString()
+        var getRederPwd = intent.getStringExtra("getRederPwd").toString()
+        var getRederAuth = intent.getStringExtra("getRederAuth").toString()
+        var getRederName = intent.getStringExtra("getRederName").toString()
+        var getRederDepart = intent.getStringExtra("getRederDepart").toString()
+        var getRederMajor = intent.getStringExtra("getRederMajor").toString()
+        var getRederProfile = intent.getStringExtra("getRederProfile").toString()
+        var getRederDue = intent.getStringExtra("getRederDue").toString()
+        var getRederReceive = intent.getStringExtra("getRederReceive").toString()
+
 
 
         // Check for available NFC Adapter
@@ -57,7 +67,17 @@ class nfc_reader : Activity(), NfcAdapter.CreateNdefMessageCallback {
                 builder.show()
             }else{
                 var intent = Intent(this, admin_read_card::class.java)
-                intent.putExtra("getId",readId)
+                //리드한 유저의 정보 전송
+                intent.putExtra("getRederId", getRederId)
+                intent.putExtra("getRederPwd", getRederPwd)
+                intent.putExtra("getRederAuth", getRederAuth)
+                intent.putExtra("getRederName", getRederName)
+                intent.putExtra("getRederMajor", getRederMajor)
+                intent.putExtra("getRederDepart", getRederDepart)
+                intent.putExtra("getRederProfile", getRederProfile)
+                intent.putExtra("getRederDue",getRederDue)
+                intent.putExtra("getRederReceive",getRederReceive)
+                intent.putExtra("getId",readId) //태그로 읽어온 아이디 값 전송
                 startActivity(intent)
 
             }
@@ -126,7 +146,28 @@ class nfc_reader : Activity(), NfcAdapter.CreateNdefMessageCallback {
     }
 
     override fun onBackPressed() {
+        var getRederId = intent.getStringExtra("getRederId").toString()
+        var getRederPwd = intent.getStringExtra("getRederPwd").toString()
+        var getRederAuth = intent.getStringExtra("getRederAuth").toString()
+        var getRederName = intent.getStringExtra("getRederName").toString()
+        var getRederDepart = intent.getStringExtra("getRederDepart").toString()
+        var getRederMajor = intent.getStringExtra("getRederMajor").toString()
+        var getRederProfile = intent.getStringExtra("getRederProfile").toString()
+        var getRederDue = intent.getStringExtra("getRederDue").toString()
+        var getRederReceive = intent.getStringExtra("getRederReceive").toString()
+
+
         val intent = Intent(this,admin_login_first::class.java)
+        intent.putExtra("getId", getRederId)
+        intent.putExtra("getPwd", getRederPwd)
+        intent.putExtra("getAuth", getRederAuth)
+        intent.putExtra("getName", getRederName)
+        intent.putExtra("getMajor", getRederMajor)
+        intent.putExtra("getDepart", getRederDepart)
+        intent.putExtra("getProfile", getRederProfile)
+        intent.putExtra("getDue",getRederDue)
+        intent.putExtra("getReceive",getRederReceive)
+
         startActivity(intent)
     }
 

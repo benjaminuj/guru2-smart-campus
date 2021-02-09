@@ -1,6 +1,7 @@
 package com.example.guru2
 
 
+import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import android.database.Cursor
@@ -12,10 +13,14 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.finishAffinity
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.*
 import java.lang.StringBuilder
 import java.util.*
 import kotlin.concurrent.timer
+import kotlin.system.exitProcess
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,7 +31,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var btnLogin2: Button
     lateinit var edtId: EditText
     lateinit var edtPwd: EditText
-    lateinit var reff: DatabaseReference
+
+    var mBackWait:Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         title = " "
@@ -91,7 +97,7 @@ class MainActivity : AppCompatActivity() {
             } else { //공백이 아니면
                 Handler().postDelayed(Runnable { //서버에서값 가져오는거 기다리는시간
                     if (enterId == getId && enterPwd == getPwd) {
-                        var intent = Intent(this, idcard::class.java)
+                        var intent = Intent(this, login_first::class.java)
 
 
                         intent.putExtra("getId", getId)
@@ -187,6 +193,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onBackPressed() {
+        if(System.currentTimeMillis() - mBackWait >=2000 ) {
+            mBackWait = System.currentTimeMillis()
+            Toast.makeText(this, "뒤로가기 버튼을 한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+        } else {
+            ActivityCompat.finishAffinity(this)
+            exitProcess(0)
+        }
+    }
+
 }
 
 
