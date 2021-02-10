@@ -35,6 +35,19 @@ class idcard : Activity(), NfcAdapter.CreateNdefMessageCallback {
         this.tvId = findViewById(R.id.tvId)
         this.imgProfile = findViewById(R.id.imgProfile)
 
+
+
+
+        nfcAdapter = NfcAdapter.getDefaultAdapter(this)
+        if (nfcAdapter == null) {
+            Toast.makeText(this, "NFC 사용이 불가합니다. NFC 상태를 확인해주세요.", Toast.LENGTH_LONG).show()
+            finish()
+            return
+        }else if(!nfcAdapter!!.isEnabled){
+            Toast.makeText(this, "NFC 사용이 불가합니다. NFC 상태를 확인해주세요.", Toast.LENGTH_LONG).show()
+            finish()
+
+        }
         //메인 액티비티에서 받아온 변수 연결
         var getId = intent.getStringExtra("getId").toString()
         var getName = intent.getStringExtra("getName").toString()
@@ -56,14 +69,6 @@ class idcard : Activity(), NfcAdapter.CreateNdefMessageCallback {
         else
             imgProfile.setImageResource(R.drawable.person)
 
-
-        //nfc가 실행가능한지 확인
-        nfcAdapter = NfcAdapter.getDefaultAdapter(this)
-        if (nfcAdapter == null) {
-            Toast.makeText(this, "NFC 사용이 불가능합니다. NFC를 켜고 다시 실행해주세요", Toast.LENGTH_LONG).show()
-            finish()
-            return
-        }
         // Register callback
         nfcAdapter?.setNdefPushMessageCallback(this, this)
 
