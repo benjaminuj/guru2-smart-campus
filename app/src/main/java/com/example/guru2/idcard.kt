@@ -61,7 +61,7 @@ class idcard : Activity(), NfcAdapter.CreateNdefMessageCallback {
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
         if (nfcAdapter == null) {
             Toast.makeText(this, "NFC 사용이 불가능합니다. NFC를 켜고 다시 실행해주세요", Toast.LENGTH_LONG).show()
-            finish()
+            this.finish()
             return
         }
         // Register callback
