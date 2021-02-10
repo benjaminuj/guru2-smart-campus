@@ -22,6 +22,8 @@ class DBHelper(context: Context)
         private val SPOT = "spot"
         private val LECTURE = "lecture"
         private val PROFESSOR = "professor"
+        private val PERIOD = "period"
+        private val DAYOFWEEK = "dayOfWeek"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -35,7 +37,7 @@ class DBHelper(context: Context)
         // lecture information 테이블 생성
         val createTable_lec_info =
             "CREATE TABLE lec_info" +
-                    "($PROFESSOR TEXT," + "$SPOT TEXT," + "$LECTURE TEXT)"
+                    "($PROFESSOR TEXT," + "$SPOT TEXT," + "$LECTURE TEXT," + "$PERIOD INTEGER," + "$DAYOFWEEK TEXT)"
 
         db?.execSQL(createTable_entry)
         db?.execSQL(createTable_lec_info)
