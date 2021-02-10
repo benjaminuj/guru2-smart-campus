@@ -140,7 +140,6 @@ class MainActivity : AppCompatActivity() { ///어플 실행시 첫 화면(로그
                             intent.putExtra("getName", getName)
                             intent.putExtra("getMajor", getMajor)
                             intent.putExtra("getDepart", getDepart)
-                            intent.putExtra("getProfile", getProfile)
                             intent.putExtra("getAuth",getAuth)
                             startActivity(intent)       ///관리자 로그인 첫 페이지 실행
 
