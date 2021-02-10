@@ -46,7 +46,6 @@ class idcard : Activity(), NfcAdapter.CreateNdefMessageCallback {
         }else if(!nfcAdapter!!.isEnabled){
             Toast.makeText(this, "NFC 사용이 불가합니다. NFC 상태를 확인해주세요.", Toast.LENGTH_LONG).show()
             finish()
-
         }
         //메인 액티비티에서 받아온 변수 연결
         var getId = intent.getStringExtra("getId").toString()
@@ -69,7 +68,7 @@ class idcard : Activity(), NfcAdapter.CreateNdefMessageCallback {
         else
             imgProfile.setImageResource(R.drawable.person)
 
-        // Register callback
+
         nfcAdapter?.setNdefPushMessageCallback(this, this)
 
 
