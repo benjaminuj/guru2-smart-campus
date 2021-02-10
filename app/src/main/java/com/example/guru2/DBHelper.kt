@@ -25,14 +25,18 @@ class DBHelper(context: Context)
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
+        // entry 테이블 생성
         val createTable_entry =
             "CREATE TABLE $TABLE_NAME" +
                     "($DATE TEXT," + "$TIME TEXT," +
                     "$NAME TEXT," + "$ID INTEGER," + "$MAJOR TEXT," +
                     "$SPOT TEXT," + "$PROFESSOR TEXT)"
+
+        // lecture information 테이블 생성
         val createTable_lec_info =
             "CREATE TABLE lec_info" +
                     "($PROFESSOR TEXT," + "$SPOT TEXT," + "$LECTURE TEXT)"
+
         db?.execSQL(createTable_entry)
         db?.execSQL(createTable_lec_info)
 
