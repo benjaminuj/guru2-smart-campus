@@ -3,6 +3,7 @@ package com.example.guru2
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.nfc.NfcAdapter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -33,15 +34,15 @@ class login_first : AppCompatActivity() {
 
         //아이디카드 버튼
         btnCard.setOnClickListener {
+
                 //메인 액티비티에서 받아온 값 그대로 전달
                 var intent = Intent(this, idcard::class.java)
                 intent.putExtra("getId", getId)
                 intent.putExtra("getName", getName)
                 intent.putExtra("getMajor", getMajor)
                 intent.putExtra("getDepart", getDepart)
-                intent.putExtra("getProfile",getProfile)
+                intent.putExtra("getProfile", getProfile)
                 startActivity(intent)
-
 
         }
 
@@ -59,7 +60,7 @@ class login_first : AppCompatActivity() {
         }
 
 
-        //리더기 버튼
+        //로그아웃버튼
         btnLogout.setOnClickListener { //로그아웃 기능 - 로그인 화면으로
             var intent = Intent(this,MainActivity::class.java)
             startActivity(intent)

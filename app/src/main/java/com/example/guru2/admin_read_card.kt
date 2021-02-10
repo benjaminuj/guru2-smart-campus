@@ -91,9 +91,9 @@ class admin_read_card : AppCompatActivity() {
                 tvMoney1.text = "X"}
             ////db에서 받아온 getReceive(행사 수령 여부)값이 0이면 텍스트를 수령, 아니면 텍스트를 미수령으로 바꿈
             if(getReceive =="0")
-                tvParticipate1.text = "수령"
+                tvParticipate1.text = "참여"
             else
-                tvParticipate1.text = "미수령"
+                tvParticipate1.text = "미참여"
 
             //학생회비 납부 여부가 O이고 행사 수령 여부가 미수령이면 버튼 활성화
             btnReceive.isEnabled = getDue=="0" && getReceive=="1"
@@ -105,7 +105,7 @@ class admin_read_card : AppCompatActivity() {
         //버튼을 클릭했을 때
         btnReceive.setOnClickListener {
             database.reference.child(getId).child("receive").setValue("0") //서버 getId 이름의 테이블의 receive 값을 0(수령함)으로 변경
-            Toast.makeText(this, "수령으로 변경되었습니다", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "참여로 변경되었습니다", Toast.LENGTH_SHORT).show()
             btnReceive.isEnabled=false
 
         }
