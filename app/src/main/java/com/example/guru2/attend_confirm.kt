@@ -203,6 +203,10 @@ class attend_confirm : AppCompatActivity() {
                     idResult2.setText(strId)
                     majorResult2.setText(strMajor)
 
+                    timeResult2.setBackgroundResource(R.drawable.edge_right)
+                    nameResult2.setBackgroundResource(R.drawable.edge_right)
+                    idResult2.setBackgroundResource(R.drawable.edge_right)
+
                     cursor3.close()
                     sqlDB.close()
 

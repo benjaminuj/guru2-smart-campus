@@ -83,6 +83,11 @@ class access_record : AppCompatActivity() {
             spotResult.setText(strSpot)
             idReslt.setText(strId)
 
+            // 테두리 생성
+            dateResult.setBackgroundResource(R.drawable.edge_right)
+            timeResult.setBackgroundResource(R.drawable.edge_right)
+            spotResult.setBackgroundResource(R.drawable.edge_right)
+
             cursor.close()
             sqlDB.close()
 
