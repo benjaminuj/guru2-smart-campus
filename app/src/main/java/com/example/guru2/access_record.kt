@@ -51,13 +51,30 @@ class access_record : AppCompatActivity() {
             var strTime = ""
             var strSpot = ""
             var strId =""
+            var strHour=""
+            var strMinute=""
+
+            var intHour: Int ?= null
+            var intMinute: Int ?= null
 
             // 커서 움직이며 데이터값 반환, 문자열 변수에 누적
             while (cursor.moveToNext()) {
-                strDate = cursor.getString(0) + "\r\n" + strDate
-                strTime = cursor.getString(1) + "\r\n" + strTime
-                strSpot = cursor.getString(2) + "\r\n" + strSpot
-                strId = cursor.getString(3) + "\r\n" + strId
+                strDate = cursor.getString(0) + "\r\n\r\n" + strDate
+
+                intHour = cursor.getInt(1) / 100
+                intMinute = cursor.getInt(1) - intHour*100
+
+                // 시, 분 구하기
+                if(intHour<10) {strHour = "0"+intHour.toString()}
+                else {strHour = intHour.toString()}
+                if(intMinute==0) {strMinute = "00"}
+                else if (intMinute<10) {strMinute = "0"+intMinute.toString()}
+                else {strMinute = intMinute.toString()}
+
+                // 최근 입력된 기록이 상단에 뜨도록 문자열 저장
+                strTime = strHour + ":" + strMinute + "\r\n\r\n" + strTime
+                strSpot = cursor.getString(2) + "\r\n\r\n" + strSpot
+                strId = cursor.getString(3) + "\r\n\r\n" + strId
             }
 
             // 출력
@@ -69,7 +86,7 @@ class access_record : AppCompatActivity() {
             cursor.close()
             sqlDB.close()
 
-            Toast.makeText(applicationContext, "조회됨", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "조회되었습니다", Toast.LENGTH_SHORT).show()
         }
     }
 

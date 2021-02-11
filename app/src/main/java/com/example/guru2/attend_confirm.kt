@@ -3,6 +3,7 @@ package com.example.guru2
 import android.app.DatePickerDialog
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.os.Build
 import android.os.Bundle
@@ -11,6 +12,7 @@ import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+
 
 
 class attend_confirm : AppCompatActivity() {
@@ -33,6 +35,11 @@ class attend_confirm : AppCompatActivity() {
     // DB에서 정보 검색 위한 문자열 담을 공간 생성
     var strSpot: String ?= ""
     var strDate: String ?= ""
+    var intPeriod: Int ?= null
+    var strWDay: String ?= ""
+    var strRange: String ?= ""
+    var strHour: String ?= ""
+    var strMinute: String ?= ""
 
     //스피너 항목준비
     var listLecture = mutableListOf<String>()
@@ -88,14 +95,22 @@ class attend_confirm : AppCompatActivity() {
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long
             ) {
-                // 교수명, 강의실, 강의명으로 이뤄진 lec_info 테이블에서 교수명+강의명 필터링하여 강의실 찾기
+                // lec_info 테이블에서 교수명+강의명으로 필터링하여 강의실, 교시, 요일 정보 찾기
                 sqlDB = myHelper.readableDatabase
-                val cursor2: Cursor = sqlDB.rawQuery("SELECT spot FROM lec_info " +
+                val cursor2: Cursor = sqlDB.rawQuery("SELECT spot, period, dayOfWeek FROM lec_info " +
                         "WHERE professor = '" + getName + "' AND lecture = '" + listLecture[position] + "';",
                         null)
 
                 while(cursor2.moveToNext()){
-                    strSpot = cursor2.getString(0) // 강의실 정보 문자열에 저장
+                    strSpot = cursor2.getString(0) // 강의실 정보 저장
+                    intPeriod = cursor2.getInt(1) // 교시 정보 저장
+                    strWDay = cursor2.getString(2) // 요일 정보 저장
+                }
+
+                when(intPeriod){ // 출입 기록 검색 시 time을 필터링할 정보 저장
+                    12 -> strRange = "0830 < time < 1145" // 1-2교시인 경우, 08시30분~11시45분에 출입한 기록 필터링
+                    34 -> strRange = "1130 < time < 1445" // 3-4교시인 경우, 11시30분~14시45분에 출입한 기록 필터링
+                    56 -> strRange = "1430 < time < 1745" // 5-6교시인 경우, 14시30분~17시45분에 출입한 기록 필터링
                 }
 
                 cursor2.close()
@@ -110,10 +125,13 @@ class attend_confirm : AppCompatActivity() {
             var month = calendar.get(Calendar.MONTH)
             var day = calendar.get(Calendar.DAY_OF_MONTH)
 
+            var dateFormat = SimpleDateFormat("yyyy-MM-dd") // 날짜 저장할 형식 지정
+
             var date_listener  = object : DatePickerDialog.OnDateSetListener {
                 override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
                     btnclassDate.setText("${month+1}월 ${dayOfMonth}일") // 날짜가 선택됨을 보여주기 위해 날짜 선택 버튼 텍스트를 날짜로 변경
-                    strDate = year.toString() + "-" + (month+1).toString() + "-" + dayOfMonth.toString() // DB에 저장한 형식에 맞게 날짜 문자열에 저장
+                    calendar.set(year, month, dayOfMonth)
+                    strDate = dateFormat.format(calendar.getTime()) // 형식에 따라 날짜 저장
                 }
             }
 
@@ -131,16 +149,20 @@ class attend_confirm : AppCompatActivity() {
 
             } else { // 정상적으로 선택되었을 때
 
-                // 강의실+날짜 정보로 전체 학생 출입 기록 테이블에서 정보 찾기
+                // 강의실+날짜+시간 정보로 전체 학생 출입 기록 테이블에서 정보 찾기
                 sqlDB = myHelper.readableDatabase
                 val cursor3: Cursor = sqlDB.rawQuery("SELECT time, name, id, major FROM entry " +
-                        "WHERE date = '"+strDate+"' AND spot = '"+strSpot+"';", null)
+                        "WHERE date = '"+strDate+"' AND spot = '"+strSpot+"' AND "+strRange+";", null)
 
                 // 시간, 이름, 학번, 학과 나타낼 문자열 선언
                 var strTime = ""
                 var strName = ""
                 var strId = ""
                 var strMajor = ""
+
+                // 시, 분 나타낼 변수
+                var intHour: Int ?= null
+                var intMinute: Int ?= null
 
                 if (cursor3.count == 0){ // 해당하는 기록이 없을 때
 
@@ -156,10 +178,23 @@ class attend_confirm : AppCompatActivity() {
                 } else { // 해당 기록이 있을 때
 
                     while (cursor3.moveToNext()) {
-                        strTime = cursor3.getString(0) + "\r\n" + strTime // 최근 입력된 기록이 위로 오도록 문자열 저장
-                        strName = cursor3.getString(1) + "\r\n" + strName
-                        strId = cursor3.getString(2) + "\r\n" + strId
-                        strMajor = cursor3.getString(3) + "\r\n" + strMajor
+
+                        // 시: 네 자리 중 앞의 두 자리, 분: 뒤의 두 자리
+                        intHour = cursor3.getInt(0) / 100
+                        intMinute = cursor3.getInt(0) - intHour*100
+
+                        // 시, 분 정보 문자열 저장
+                        if(intHour<10) {strHour = "0"+intHour.toString()}
+                        else {strHour = intHour.toString()}
+                        if(intMinute==0) {strMinute = "00"}
+                        else if (intMinute<10) {strMinute = "0"+intMinute.toString()}
+                        else {strMinute = intMinute.toString()}
+
+                        // 최근 입력된 기록이 상단에 오도록 문자열 저장
+                        strTime = strHour + ":" + strMinute + "\r\n\r\n" + strTime
+                        strName = cursor3.getString(1) + "\r\n\r\n" + strName
+                        strId = cursor3.getString(2) + "\r\n\r\n" + strId
+                        strMajor = cursor3.getString(3) + "\r\n\r\n" + strMajor
                     }
 
                     // 출력
@@ -171,7 +206,7 @@ class attend_confirm : AppCompatActivity() {
                     cursor3.close()
                     sqlDB.close()
 
-                    Toast.makeText(this, "$strDate $strSpot 조회됨", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "$strDate $strSpot ${intPeriod}교시 조회됨", Toast.LENGTH_SHORT).show()
                 }
             }
 
