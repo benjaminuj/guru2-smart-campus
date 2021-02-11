@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity() { ///어플 실행시 첫 화면(로그
                     } else { //입력된 아이디 비밀번호와 서버의 db에서 검색해 받아온 값이 둘 중 하나라도 다르면 대화상자
                         val builder = AlertDialog.Builder(this)
                         builder.setTitle("알림!")
-                        builder.setMessage("아이디/비밀번호가 일치하지 않거나 회원정보가 존재하지 않습니다.")
+                        builder.setMessage("아이디/비밀번호가 일치하지 않거나\n회원정보가 존재하지 않습니다.")
                         builder.setIcon(R.drawable.symbol)
                         builder.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
                         })
@@ -156,7 +156,7 @@ class MainActivity : AppCompatActivity() { ///어플 실행시 첫 화면(로그
                     } else { //입력된 아이디 비밀번호와 서버의 db에서 검색해 받아온 값이 둘 중 하나라도 다르면 대화상자
                         val builder = AlertDialog.Builder(this)
                         builder.setTitle("알림!")
-                        builder.setMessage("아이디/비밀번호가 일치하지 않거나 회원정보가 존재하지 않습니다.")
+                        builder.setMessage("아이디/비밀번호가 일치하지 않거나\n회원정보가 존재하지 않습니다.")
                         builder.setIcon(R.drawable.symbol)
                         builder.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
                         })
