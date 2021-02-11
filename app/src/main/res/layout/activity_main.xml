@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/back">
 
     <ImageView
         android:id="@+id/imageView"
@@ -39,7 +40,7 @@
         android:id="@+id/edtId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
+        android:layout_marginStart="80dp"
         android:layout_marginEnd="50dp"
         android:ems="10"
         android:hint="학번"
@@ -55,7 +56,7 @@
         android:id="@+id/edtPwd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
+        android:layout_marginStart="80dp"
         android:layout_marginEnd="50dp"
         android:ems="10"
         android:hint="비밀번호"
@@ -112,6 +113,8 @@
         android:id="@+id/pwTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="10dp"
         android:text="PASSWORD"
         android:textSize="16sp"
         android:textStyle="bold"

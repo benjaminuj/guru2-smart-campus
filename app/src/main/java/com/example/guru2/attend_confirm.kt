@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.icu.util.Calendar
 import android.os.Build
 import android.os.Bundle
+import android.view.Menu
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
@@ -39,7 +40,6 @@ class attend_confirm : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTitle("출결 확인")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_attend_confirm)
 
@@ -178,4 +178,21 @@ class attend_confirm : AppCompatActivity() {
         }
 
     }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.admin_login_first,menu)
+
+        //액션바 커스터마이징 허용
+        supportActionBar?.setDisplayShowCustomEnabled(true)
+
+        //기존 액션바 요소 숨김
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayShowHomeEnabled(false)
+
+        var actionView =layoutInflater.inflate(R.layout.custom_actionbar,null)
+        supportActionBar?.customView=actionView
+        return true
+
+    }
+
 }

@@ -16,7 +16,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GURU2">
-        <activity android:name=".login_first"></activity>
         <activity android:name=".attend_confirm"></activity>
         <activity android:name=".admin_read_card" />
         <activity android:name=".access_record" />

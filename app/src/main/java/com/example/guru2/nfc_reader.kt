@@ -7,13 +7,14 @@ import android.nfc.NdefRecord
 import android.nfc.NfcAdapter
 import android.nfc.NfcEvent
 import android.os.Bundle
+import android.view.Menu
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 
 
-
-class nfc_reader : Activity(), NfcAdapter.CreateNdefMessageCallback {
+class nfc_reader : AppCompatActivity(), NfcAdapter.CreateNdefMessageCallback {
 
     private var nfcAdapter: NfcAdapter? = null
     lateinit var btnLoad : Button
@@ -86,9 +87,6 @@ class nfc_reader : Activity(), NfcAdapter.CreateNdefMessageCallback {
         }
     }
 
-    override fun onNewIntent(intent: Intent) {
-        setIntent(intent)
-    }
     private fun processIntent(intent: Intent) { //nfc로 받아온 메시지를 readId에 저장
         intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)?.also { rawMsgs ->
             (rawMsgs[0] as NdefMessage).apply {
@@ -103,6 +101,22 @@ class nfc_reader : Activity(), NfcAdapter.CreateNdefMessageCallback {
     override fun onBackPressed() { //뒤로가기 시 관리자 로그인 첫페이지로
         val intent = Intent(this,admin_login_first::class.java)
         startActivity(intent)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        //액션바 커스터마이징 허용
+        supportActionBar?.setDisplayShowCustomEnabled(true)
+
+        //기존 액션바 요소 숨김
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayShowHomeEnabled(false)
+
+        var actionView =layoutInflater.inflate(R.layout.custom_actionbar,null)
+        supportActionBar?.customView=actionView
+        return true
+
     }
 
 
