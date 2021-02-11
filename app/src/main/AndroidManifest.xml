@@ -17,8 +17,6 @@
         android:supportsRtl="true"
         android:theme="@style/SplashTheme">
 
-        <activity android:name="login_first"
-            android:theme="@style/ThemeGURU2"/>
         <activity android:name="attend_confirm"
             android:theme="@style/ThemeGURU2"/>
         <activity android:name="admin_read_card"
