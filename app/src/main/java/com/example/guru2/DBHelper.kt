@@ -30,9 +30,8 @@ class DBHelper(context: Context)
         // entry 테이블 생성
         val createTable_entry =
             "CREATE TABLE $TABLE_NAME" +
-                    "($DATE TEXT," + "$TIME TEXT," +
-                    "$NAME TEXT," + "$ID INTEGER," + "$MAJOR TEXT," +
-                    "$SPOT TEXT," + "$PROFESSOR TEXT)"
+                    "($DATE TEXT, $TIME TEXT," +
+                    "$NAME TEXT, $ID INTEGER, $MAJOR TEXT, $SPOT TEXT)"
 
         // lecture information 테이블 생성
         val createTable_lec_info =
