@@ -3,6 +3,7 @@ package com.example.guru2
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.view.Menu
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -118,6 +119,20 @@ class admin_read_card : AppCompatActivity() {
 
             startActivity(intent)
         }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        //액션바 커스터마이징 허용
+        supportActionBar?.setDisplayShowCustomEnabled(true)
+
+        //기존 액션바 요소 숨김
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayShowHomeEnabled(false)
+
+        var actionView =layoutInflater.inflate(R.layout.custom_actionbar,null)
+        supportActionBar?.customView=actionView
+        return true
+    }
 
 
     }

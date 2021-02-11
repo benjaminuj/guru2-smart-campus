@@ -1,18 +1,25 @@
 package com.example.guru2
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.nfc.NdefMessage
 import android.nfc.NdefRecord.createMime
 import android.nfc.NfcAdapter
 import android.nfc.NfcEvent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import com.bumptech.glide.Glide
+import kotlin.system.exitProcess
 
-class idcard : Activity(), NfcAdapter.CreateNdefMessageCallback {
+class idcard : AppCompatActivity(), NfcAdapter.CreateNdefMessageCallback {
 
     lateinit var tvId : TextView
     lateinit var tvMajor : TextView
@@ -84,20 +91,64 @@ class idcard : Activity(), NfcAdapter.CreateNdefMessageCallback {
         )
     }
 
-    //뒤로가기 할 경우 정보가 사라지는 것을 막기 위해 데이터 전달
+
     override fun onBackPressed() {
-        var getId = intent.getStringExtra("getId").toString()
-        var getName = intent.getStringExtra("getName").toString()
-        var getDepart = intent.getStringExtra("getDepart").toString()
-        var getMajor = intent.getStringExtra("getMajor").toString()
-        var getProfile = intent.getStringExtra("getProfile").toString()
-        val intent = Intent(this,login_first::class.java)
-        intent.putExtra("getId", getId)
-        intent.putExtra("getName", getName)
-        intent.putExtra("getMajor", getMajor)
-        intent.putExtra("getDepart", getDepart)
-        intent.putExtra("getProfile", getProfile)
+        val intent = Intent(this,MainActivity::class.java)
         startActivity(intent)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        menuInflater.inflate(R.menu.idcard_menu,menu)
+
+        //액션바 커스터마이징 허용
+        supportActionBar?.setDisplayShowCustomEnabled(true)
+
+        //기존 액션바 요소 숨김
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayShowHomeEnabled(false)
+
+        var actionView =layoutInflater.inflate(R.layout.custom_actionbar,null)
+        supportActionBar?.customView=actionView
+        return true
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item?.itemId){
+            R.id.Logout-> { // 로그아웃 선택 시
+                val intent = Intent(this,MainActivity::class.java) // 로그인 화면으로 이동
+                startActivity(intent)
+                return true
+            }
+            R.id.pay-> { // 결제버튼 선택시
+                if (isInstalledApp("com.nhnent.payapp"))//외부어플(페이코)이 설치되었는지 확인
+                {
+                    openApp("com.nhnent.payapp")
+                }else{                                              //설치되어있지 않으면 플레이스토어로 이동시켜 설치유도
+                    val intentPlayStore = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.nhnent.payapp")) // 설치 링크를 인텐트에 담아
+                    startActivity(intentPlayStore)
+                }
+                //외부어플 실행 후 어플 종료
+                ActivityCompat.finishAffinity(this)
+                exitProcess(0)
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
+
+    }
+
+
+    fun Context.isInstalledApp(packageName: String): Boolean { //앱이 설치되었는지 확인하는 함수
+        val intent = packageManager.getLaunchIntentForPackage(packageName)
+        return intent != null
+    }
+    fun Context.openApp(packageName: String) { // 특정 앱을 실행하는 함수
+        val intent = packageManager.getLaunchIntentForPackage(packageName)
+        startActivity(intent)
+    }
+
 
 }

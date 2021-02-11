@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() { ///어플 실행시 첫 화면(로그
     var mBackWait:Long = 0 //뒤로가기 두번 클릭시 어플 종료할때 사용
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.ThemeGURU2)
+        title = " "
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         btnLogin1 = findViewById(R.id.btnLogin1) //로그인

@@ -79,7 +79,19 @@ class admin_login_first : AppCompatActivity() { ////////관리자 로그인 첫 
     // 메뉴 생성
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.admin_login_first,menu)
-        return true
+
+        //액션바 커스터마이징 허용
+            supportActionBar?.setDisplayShowCustomEnabled(true)
+
+        //기존 액션바 요소 숨김
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            supportActionBar?.setDisplayShowTitleEnabled(false)
+            supportActionBar?.setDisplayShowHomeEnabled(false)
+
+        var actionView =layoutInflater.inflate(R.layout.custom_actionbar,null)
+            supportActionBar?.customView=actionView
+            return true
+
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item?.itemId){
@@ -97,6 +109,7 @@ class admin_login_first : AppCompatActivity() { ////////관리자 로그인 첫 
         val intent = Intent(this,MainActivity::class.java) // 로그인 화면으로 이동
         startActivity(intent)
     }
+
 
 
 }
