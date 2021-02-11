@@ -5,6 +5,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.view.Menu
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() { ///어플 실행시 첫 화면(로그
     var mBackWait:Long = 0 //뒤로가기 두번 클릭시 어플 종료할때 사용
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        title = " "
+        setTheme(R.style.ThemeGURU2)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         btnLogin1 = findViewById(R.id.btnLogin1) //로그인
@@ -81,7 +82,7 @@ class MainActivity : AppCompatActivity() { ///어플 실행시 첫 화면(로그
             } else { //입력된 아이디와 비밀번호가 공백이 아니면
                 Handler().postDelayed(Runnable { //서버에서값 가져오는것 기다리는 시간 주기
                     if (enterId == getId && enterPwd == getPwd) { //입력된 아이디 비밀번호와 서버의 db에서 검색해 받아온 값이 같으면
-                        var intent = Intent(this, login_first::class.java)
+                        var intent = Intent(this, idcard::class.java)
 
 
                         intent.putExtra("getId", getId)     //서버에서 받아온 값 다음 액티비티로 넘겨주기
@@ -95,7 +96,7 @@ class MainActivity : AppCompatActivity() { ///어플 실행시 첫 화면(로그
                     } else { //입력된 아이디 비밀번호와 서버의 db에서 검색해 받아온 값이 둘 중 하나라도 다르면 대화상자
                         val builder = AlertDialog.Builder(this)
                         builder.setTitle("알림!")
-                        builder.setMessage("아이디/비밀번호가 일치하지 않거나 회원정보가 존재하지 않습니다.")
+                        builder.setMessage("아이디/비밀번호가 일치하지 않거나\n회원정보가 존재하지 않습니다.")
                         builder.setIcon(R.drawable.symbol)
                         builder.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
                         })
@@ -155,7 +156,7 @@ class MainActivity : AppCompatActivity() { ///어플 실행시 첫 화면(로그
                     } else { //입력된 아이디 비밀번호와 서버의 db에서 검색해 받아온 값이 둘 중 하나라도 다르면 대화상자
                         val builder = AlertDialog.Builder(this)
                         builder.setTitle("알림!")
-                        builder.setMessage("아이디/비밀번호가 일치하지 않거나 회원정보가 존재하지 않습니다.")
+                        builder.setMessage("아이디/비밀번호가 일치하지 않거나\n회원정보가 존재하지 않습니다.")
                         builder.setIcon(R.drawable.symbol)
                         builder.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
                         })
@@ -178,6 +179,19 @@ class MainActivity : AppCompatActivity() { ///어플 실행시 첫 화면(로그
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        //액션바 커스터마이징 허용
+        supportActionBar?.setDisplayShowCustomEnabled(true)
+
+        //기존 액션바 요소 숨김
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayShowHomeEnabled(false)
+
+        var actionView =layoutInflater.inflate(R.layout.custom_actionbar,null)
+        supportActionBar?.customView=actionView
+        return true
+    }
 }
 
 

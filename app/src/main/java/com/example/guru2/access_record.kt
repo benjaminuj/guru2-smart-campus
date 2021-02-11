@@ -1,5 +1,6 @@
 package com.example.guru2
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
@@ -25,6 +26,7 @@ class access_record : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_access_record)
+
         setTitle("출입 기록")
 
         // xml 위젯 객체 연결
@@ -81,6 +83,11 @@ class access_record : AppCompatActivity() {
             spotResult.setText(strSpot)
             idReslt.setText(strId)
 
+            // 테두리 생성
+            dateResult.setBackgroundResource(R.drawable.edge_right)
+            timeResult.setBackgroundResource(R.drawable.edge_right)
+            spotResult.setBackgroundResource(R.drawable.edge_right)
+
             cursor.close()
             sqlDB.close()
 
@@ -89,8 +96,22 @@ class access_record : AppCompatActivity() {
     }
 
     // 메뉴 생성
+    @SuppressLint("InflateParams")
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.access_record_menu, menu)
+        menuInflater.inflate(R.menu.admin_login_first, menu)
+
+            //액션바 커스터마이징 허용
+            supportActionBar?.setDisplayShowCustomEnabled(true)
+
+            //기존 액션바 요소 숨김
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            supportActionBar?.setDisplayShowTitleEnabled(false)
+            supportActionBar?.setDisplayShowHomeEnabled(false)
+
+            var actionView =layoutInflater.inflate(R.layout.custom_actionbar,null)
+            supportActionBar?.customView=actionView
+            return true
+
         return true
     }
 
