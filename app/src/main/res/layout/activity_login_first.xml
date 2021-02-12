@@ -22,7 +22,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnPay"
+        app:layout_constraintTop_toBottomOf="@+id/btnAttend"
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
@@ -46,14 +46,14 @@
         android:text="모바일 아이디 카드"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/btnPay"
+        app:layout_constraintBottom_toTopOf="@+id/btnAttend"
         app:layout_constraintEnd_toEndOf="@+id/btnLogout"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/btnLogout"
         app:layout_constraintTop_toBottomOf="@+id/tvId" />
 
     <Button
-        android:id="@+id/btnPay"
+        android:id="@+id/btnAttend"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
