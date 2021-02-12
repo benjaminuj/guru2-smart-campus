@@ -127,6 +127,16 @@ class access_record : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onBackPressed() { //뒤로가기 시 관리자 로그인 첫페이지로 & 정보 상실 방지
+        var getAuth = intent.getStringExtra("getAuth").toString()
+        var getName = intent.getStringExtra("getName").toString()
+        val intent = Intent(this,admin_login_first::class.java)
+        intent.putExtra("getAuth", getAuth)
+        intent.putExtra("getName", getName)
+        startActivity(intent)
+    }
+
+
 }
 
 

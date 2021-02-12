@@ -22,7 +22,7 @@ class admin_login_first : AppCompatActivity() { ////////관리자 로그인 첫 
         btnAttend = findViewById(R.id.btnAttend) //출결확인 버튼
         btnRecord = findViewById(R.id.btnLogout) //출입기록확인 버튼
 
-         ////로그인 창에서 보낸 변수 받기
+         ////보낸 정보 받기
         var getAuth = intent.getStringExtra("getAuth").toString()
         var getName = intent.getStringExtra("getName").toString()
 
@@ -42,6 +42,7 @@ class admin_login_first : AppCompatActivity() { ////////관리자 로그인 첫 
             }else {
                 var intent = Intent(this, attend_confirm::class.java)
                 intent.putExtra("getName", getName)
+                intent.putExtra("getAuth", getAuth)
                 startActivity(intent)
             }
 
@@ -53,6 +54,8 @@ class admin_login_first : AppCompatActivity() { ////////관리자 로그인 첫 
         btnRecord.setOnClickListener {
             if(getAuth =="3"){   //권한이 3이면 출입기록 확인 페이지로 아니면 권한없음
                 var intent = Intent(this, access_record::class.java)
+                intent.putExtra("getName", getName)
+                intent.putExtra("getAuth", getAuth)
                 startActivity(intent)
             }else {
                 val builder = AlertDialog.Builder(this)
@@ -69,10 +72,11 @@ class admin_login_first : AppCompatActivity() { ////////관리자 로그인 첫 
 
         }
 
-
         ///////////리더기 버튼
         btnReader.setOnClickListener {
             var intent = Intent(this, nfc_reader::class.java)
+            intent.putExtra("getName", getName)
+            intent.putExtra("getAuth", getAuth)
             startActivity(intent)
 
         }

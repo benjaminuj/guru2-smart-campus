@@ -113,12 +113,6 @@ class admin_read_card : AppCompatActivity() {
 
     }
 
-        override fun onBackPressed() { //뒤로가기시 NFC리더 페이지로
-
-            val intent = Intent(this, nfc_reader::class.java)
-
-            startActivity(intent)
-        }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         //액션바 커스터마이징 허용
