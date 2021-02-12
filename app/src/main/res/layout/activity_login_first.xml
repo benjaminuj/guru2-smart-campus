@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".admin_login_first">
+    tools:context=".admin_login_first"
+    android:background="@color/lightgray"
+    android:theme="@style/ThemeGURU2">
 
     <Button
         android:id="@+id/btnLogout"

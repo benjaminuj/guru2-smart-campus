@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".admin_login_first">
+    tools:context=".admin_login_first"
+    android:theme="@style/ThemeGURU2"
+    android:background="@color/lightgray">
 
     <Button
         android:id="@+id/btnLogout"
@@ -12,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="100dp"
-        android:background="#404040"
+        android:background="@drawable/btn_radius"
         android:text="출입기록확인"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
@@ -40,8 +42,8 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="#404040"
-        android:text="리더기"
+        android:background="@drawable/btn_radius"
+        android:text="리   더   기"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/btnPay"
@@ -55,8 +57,8 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="#404040"
-        android:text="출결확인"
+        android:background="@drawable/btn_radius"
+        android:text="출  결  확  인"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/btnLogout"

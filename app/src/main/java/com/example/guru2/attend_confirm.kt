@@ -207,6 +207,7 @@ class attend_confirm : AppCompatActivity() {
                     timeResult2.setBackgroundResource(R.drawable.edge_right)
                     nameResult2.setBackgroundResource(R.drawable.edge_right)
                     idResult2.setBackgroundResource(R.drawable.edge_right)
+                    majorResult2.setBackgroundResource(R.color.white)
 
                     cursor3.close()
                     sqlDB.close()

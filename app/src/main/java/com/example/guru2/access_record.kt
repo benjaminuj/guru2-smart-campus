@@ -87,6 +87,7 @@ class access_record : AppCompatActivity() {
             dateResult.setBackgroundResource(R.drawable.edge_right)
             timeResult.setBackgroundResource(R.drawable.edge_right)
             spotResult.setBackgroundResource(R.drawable.edge_right)
+            idReslt.setBackgroundResource(R.color.white)
 
             cursor.close()
             sqlDB.close()
