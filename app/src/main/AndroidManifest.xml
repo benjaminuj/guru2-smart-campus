@@ -23,8 +23,8 @@
             android:theme="@style/ThemeGURU2"/>
         <activity android:name="access_record"
             android:theme="@style/ThemeGURU2"/>
-        <activity android:name="idcard">
-            android:theme="@style/ThemeGURU2"
+        <activity android:name="idcard"
+            android:theme="@style/ThemeGURU2">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
 
@@ -40,7 +40,6 @@
             android:theme="@style/ThemeGURU2"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".MainActivity">
-            android:theme="@style/ThemeGURU2"
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.nfc.action.TAG_DISCOVERED" />
@@ -48,8 +47,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity> <!-- intent filter 추가함 -->
-        <activity android:name="nfc_reader">
-            android:theme="@style/ThemeGURU2"
+        <activity android:name="nfc_reader"
+            android:theme="@style/ThemeGURU2">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
 
