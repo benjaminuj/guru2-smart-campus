@@ -18,7 +18,7 @@
 
         <TextView
             android:id="@+id/tvProfessor"
-            android:layout_width="30dp"
+            android:layout_width="25dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginRight="5dp"
@@ -38,10 +38,13 @@
 
         <Button
             android:id="@+id/btnclassDate"
-            android:layout_width="0dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="날짜 선택" />
+            android:background="@drawable/btn_radius"
+            android:text="날짜 선택"
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 
@@ -51,7 +54,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginHorizontal="10dp"
-        android:text="조     회" />
+        android:background="@color/blue"
+        android:text="조     회"
+        android:textColor="#FFFFFF" />
 
     <LinearLayout
         android:layout_width="match_parent"
