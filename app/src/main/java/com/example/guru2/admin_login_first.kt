@@ -19,8 +19,8 @@ class admin_login_first : AppCompatActivity() { ////////관리자 로그인 첫 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_login_first)
         btnReader = findViewById(R.id.btnCard) //리더기 버튼
-        btnAttend = findViewById(R.id.btnAttend) //출결확인 버튼
-        btnRecord = findViewById(R.id.btnLogout) //출입기록확인 버튼
+        btnAttend = findViewById(R.id.btnAttendConfirm) //출결확인 버튼
+        btnRecord = findViewById(R.id.btnAccess) //출입기록확인 버튼
 
          ////보낸 정보 받기
         var getAuth = intent.getStringExtra("getAuth").toString()
