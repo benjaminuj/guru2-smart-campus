@@ -15,7 +15,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.GURU2">
+        android:theme="@style/Theme.GURU2"
+        android:hardwareAccelerated="false"
+        >
         <activity android:name=".attend_confirm"></activity>
         <activity android:name=".admin_read_card" />
         <activity android:name=".access_record" />
