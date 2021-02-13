@@ -9,6 +9,7 @@ import android.icu.util.Calendar
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
@@ -18,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 class attend_confirm : AppCompatActivity() {
 
+    lateinit var profSpinner: Spinner // 교수명 선택 스피너
     lateinit var tvProfessor: TextView // 교수명 출력 텍스트뷰
     lateinit var btnResult:Button // 조회 버튼
     lateinit var spinner: Spinner // 강의명 선택 스피너
@@ -41,9 +43,11 @@ class attend_confirm : AppCompatActivity() {
     var strRange: String ?= ""
     var strHour: String ?= ""
     var strMinute: String ?= ""
+    var strProf: String ?= ""
 
     //스피너 항목준비
     var listLecture = mutableListOf<String>()
+    var listProfessor = mutableListOf<String>()
 
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -52,7 +56,8 @@ class attend_confirm : AppCompatActivity() {
         setContentView(R.layout.activity_attend_confirm)
 
         // xml 객체 연결
-        tvProfessor = findViewById(R.id.tvProfessor)
+        profSpinner = findViewById(R.id.profSpinner)
+        //tvProfessor = findViewById(R.id.tvProfessor)
         spinner = findViewById(R.id.spinner)
         btnResult = findViewById(R.id.btnResult)
         btnclassDate = findViewById(R.id.btnclassDate)
@@ -62,33 +67,109 @@ class attend_confirm : AppCompatActivity() {
         idResult2 = findViewById(R.id.idResult2)
         majorResult2 = findViewById(R.id.majorResult2)
 
-        // 교수님 성함 가져오기
-        var getName = intent.getStringExtra("getName").toString()
-
-        // 텍스트뷰 글자 설정(교수님 성함)
-        tvProfessor.setText(getName+" 교수")
-
         // DB 클래스 객체 생성
         myHelper = DBHelper(this)
         sqlDB = myHelper.readableDatabase
 
-        // 커서 선언, 테이블 조회 후 대입
-        val cursor1: Cursor = sqlDB.rawQuery("SELECT professor, lecture FROM lec_info;", null)
+        // 권한 가져오기
+        var getAuth = intent.getStringExtra("getAuth").toString()
 
-        // lec_info 테이블에서 이름이 일치하는 교수의 강의명 불러오기
-        while (cursor1.moveToNext()){
-            if (getName == cursor1.getString(0)) {
-                listLecture.add(cursor1.getString(1)) // 스피너 항목에 대입
+        // 교수님 성함 가져오기
+        var getName = intent.getStringExtra("getName").toString()
+
+        if (getAuth == "3") { // 권한이 3(관리자)일 경우
+            Toast.makeText(this, "관리자", Toast.LENGTH_SHORT).show()
+
+            // 커서 선언, 테이블 조회 후 대입
+            var cursor0: Cursor = sqlDB.rawQuery("SELECT professor FROM lec_info", null)
+
+            // 교수명 리스트
+            while (cursor0.moveToNext()) {
+                if(listProfessor.size == 0){
+                    listProfessor.add(cursor0.getString(0))
+                } else {
+                    if(listProfessor.get(listProfessor.size -1) != cursor0.getString(0)){ // 받아온 이름이 마지막 요소와 다르면 add
+                    listProfessor.add(cursor0.getString(0))
+                    }
+                }
             }
-            //Toast.makeText(this, "강의명 불러옴", Toast.LENGTH_SHORT).show()
+            // 스피너 어댑터 연결
+            profSpinner.adapter  = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, listProfessor)
+
+            cursor0.close()
+            sqlDB.close()
+
+
+        } else { // 권한이 2(교직원일 경우)
+            Toast.makeText(this, "교수", Toast.LENGTH_SHORT).show()
+
+            // 텍스트뷰 글자 설정(교수님 성함)
+            //tvProfessor.setText(getName+" 교수")
+
+
+            // 교수명 스피너에 본인 이름만 add
+            listProfessor.add(getName)
+            // 스피너 어댑터 연결
+            profSpinner.adapter  = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, listProfessor)
+
+            strProf = getName
+
+            // 커서 선언, 테이블 조회 후 대입
+            //sqlDB = myHelper.readableDatabase
+            val cursor1: Cursor = sqlDB.rawQuery("SELECT professor, lecture lecture FROM lec_info;", null)
+
+            // lec_info 테이블에서 이름이 일치하는 교수의 강의명 불러오기
+            while (cursor1.moveToNext()){
+                if (strProf.equals(cursor1.getString(0))) {
+                    listLecture.add(cursor1.getString(1)) // 스피너 항목에 대입
+                }
+                //Toast.makeText(this, "강의명 불러옴", Toast.LENGTH_SHORT).show()
+            }
+            spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, listLecture)
+
+            cursor1.close()
+            sqlDB.close()
         }
-        cursor1.close()
-        sqlDB.close()
+
 
         // 스피너 어댑터 연결
-       spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, listLecture)
+        //profSpinner.adapter  = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, listProfessor)
+        //spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, listLecture)
 
-        // 스피너 아이템 선택 리스너
+        // 스피너 (교수명) 선택 리스너
+        profSpinner.onItemSelectedListener = object :AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                Toast.makeText(this@attend_confirm, "교수를 선택하세요", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                // 교수명 저장
+                strProf = listProfessor[position]
+
+                // 커서 선언, 테이블 조회 후 대입
+                sqlDB = myHelper.readableDatabase
+                val cursor1: Cursor = sqlDB.rawQuery("SELECT professor, lecture lecture FROM lec_info;", null)
+
+                listLecture.clear()
+
+                // lec_info 테이블에서 이름이 일치하는 교수의 강의명 불러오기
+                while (cursor1.moveToNext()){
+                    if (strProf.equals(cursor1.getString(0))) {
+                        listLecture.add(cursor1.getString(1)) // 스피너 항목에 대입
+                    }
+                    //Toast.makeText(this, "강의명 불러옴", Toast.LENGTH_SHORT).show()
+                }
+                spinner.adapter = ArrayAdapter(this@attend_confirm, android.R.layout.simple_spinner_dropdown_item, listLecture)
+
+                cursor1.close()
+                sqlDB.close()
+
+            }
+        }
+
+
+
+        // 스피너 (강의명) 선택 리스너
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) { // 선택되지 않았을 때
                 Toast.makeText(this@attend_confirm, "강의를 선택하세요", Toast.LENGTH_SHORT).show()
@@ -99,7 +180,7 @@ class attend_confirm : AppCompatActivity() {
                 // lec_info 테이블에서 교수명+강의명으로 필터링하여 강의실, 교시, 요일 정보 찾기
                 sqlDB = myHelper.readableDatabase
                 val cursor2: Cursor = sqlDB.rawQuery("SELECT spot, period, dayOfWeek FROM lec_info " +
-                        "WHERE professor = '" + getName + "' AND lecture = '" + listLecture[position] + "';",
+                        "WHERE professor = '" + strProf + "' AND lecture = '" + listLecture[position] + "';",
                         null)
 
                 while(cursor2.moveToNext()){
@@ -118,6 +199,8 @@ class attend_confirm : AppCompatActivity() {
                 sqlDB.close()
             }
         }
+
+
 
         // 날짜 선택 버튼
         btnclassDate.setOnClickListener { view ->
@@ -144,7 +227,7 @@ class attend_confirm : AppCompatActivity() {
         // 조회 버튼
         btnResult.setOnClickListener {
 
-            if (strDate==""||spinner.adapter.isEmpty) { // 날짜나 강의명이 선택되지 않았을 때
+            if (strDate==""||spinner.adapter.isEmpty||profSpinner.adapter.isEmpty) { // 정보가 선택되지 않았을 때
 
                 Toast.makeText(this, "강의 정보를 선택해주세요", Toast.LENGTH_SHORT).show()
 
@@ -213,7 +296,11 @@ class attend_confirm : AppCompatActivity() {
                     cursor3.close()
                     sqlDB.close()
 
-                    Toast.makeText(this, "$strDate $strSpot ${intPeriod}교시 조회됨", Toast.LENGTH_SHORT).show()
+                    if (getAuth == "3"){ // 권한 관리자
+                        Toast.makeText(this, "${strProf}교수 $strSpot ${intPeriod}교시 조회됨", Toast.LENGTH_SHORT).show()
+                    } else { // 권한 2(교직원)
+                        Toast.makeText(this, "$strDate $strSpot ${intPeriod}교시 조회됨", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
 
@@ -235,6 +322,17 @@ class attend_confirm : AppCompatActivity() {
         supportActionBar?.customView=actionView
         return true
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item?.itemId){
+            R.id.Logout-> { // 로그아웃 선택 시
+                val intent = Intent(this,MainActivity::class.java) // 로그인 화면으로 이동
+                startActivity(intent)
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onBackPressed() { //뒤로가기 시 관리자 로그인 첫페이지로 & 정보 상실 방지

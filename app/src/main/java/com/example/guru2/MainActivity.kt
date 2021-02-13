@@ -129,12 +129,12 @@ class MainActivity : AppCompatActivity() { ///어플 실행시 첫 화면(로그
             } else { //입력된 아이디와 비밀번호가 공백이 아니면
                 Handler().postDelayed(Runnable { //서버에서값 가져오는것 기다리는 시간 주기
                     if (enterId == getId && enterPwd == getPwd) { //입력된 아이디 비밀번호와 서버의 db에서 검색해 받아온 값이 같은지 판단
-                        if (getAuth == "1" || getAuth == "2"||getAuth=="3") { //받아온 학생의 권한이 1(학생회) 2(교직원)일 경우
+                        if (getAuth == "1" || getAuth == "2"||getAuth=="3") { //받아온 학생의 권한이 1(학생회) 2(교직원) 3(관리자)일 경우
                             if (getAuth == "1") { //권한이 1일경우 학생회 로그인 텍스트 메시지
                                 Toast.makeText(this, "관리자 로그인됨 : 학생회", Toast.LENGTH_SHORT).show()
                             } else if (getAuth == "2") //권한이 2일 경우 교직원 로그인 텍스트 메시지
                                 Toast.makeText(this, "관리자 로그인됨 : 교직원", Toast.LENGTH_SHORT).show()
-                            else if (getAuth == "3") //권한이 2일 경우 교직원 로그인 텍스트 메시지
+                            else if (getAuth == "3") //권한이 3일 경우 교직원 로그인 텍스트 메시지
                                 Toast.makeText(this, "관리자 로그인됨 : 관리자", Toast.LENGTH_SHORT).show()
                             var intent = Intent(this, admin_login_first::class.java)
 
