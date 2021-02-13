@@ -23,7 +23,7 @@
             android:layout_gravity="center"
             android:layout_marginRight="5dp"
             android:background="@drawable/edge_bottom"
-            android:text="교수님 성함"
+            android:text="교수님성함"
             android:textColor="@color/black"
             android:textSize="20dp" />
 
@@ -39,6 +39,8 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:background="@drawable/btn_radius"
+            android:textColor="#FFFFFF"
             android:text="날짜 선택" />
 
     </LinearLayout>
@@ -49,7 +51,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginHorizontal="10dp"
-        android:text="조     회" />
+        android:text="조     회"
+        android:background="@color/blue"
+        android:textColor="#FFFFFF"/>
 
     <LinearLayout
         android:layout_width="match_parent"
