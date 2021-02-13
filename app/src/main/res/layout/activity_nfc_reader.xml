@@ -15,6 +15,7 @@
         android:text="모바일 학생증 정보를 가져옵니다\n기기 뒷면에 태그하세요"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

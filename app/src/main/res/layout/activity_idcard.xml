@@ -12,16 +12,18 @@
 
 
     <FrameLayout
-        android:elevation="10dp"
         android:id="@+id/frameLayout"
-        android:layout_width="330dp"
-        android:layout_height="545dp"
+        android:layout_width="323dp"
+        android:layout_height="522dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/layou_shape"
+        android:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -32,13 +34,13 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="328dp"
+            android:layout_width="323dp"
             android:layout_height="50dp"
             android:layout_marginLeft="1dp"
             android:layout_marginTop="25dp"
-            android:background="#A68B73"
+            android:background="#2B3880"
             android:gravity="center"
-            android:text="스마트 ID 카드"
+            android:text="SMART ID CARD"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="25dp"
@@ -56,6 +58,7 @@
                 android:id="@+id/imgProfile"
                 android:layout_width="180dp"
                 android:layout_height="210dp"
+                android:layout_marginTop="20dp"
                 android:padding="20dp"
                 android:scaleType="fitCenter"
                 app:layout_constraintBottom_toTopOf="@+id/tvName"
@@ -72,7 +75,7 @@
                 android:text="이름"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imgProfile" />
@@ -85,7 +88,7 @@
                 android:text="학번"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvName" />
@@ -98,7 +101,7 @@
                 android:text="학과"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvId" />
@@ -111,22 +114,23 @@
                 android:text="학부"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvMajor" />
 
             <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="254dp"
-                android:layout_height="62dp"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/logoblack"
+                android:id="@+id/imageView7"
+                android:layout_width="314dp"
+                android:layout_height="445dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvDepart" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/blur2" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </FrameLayout>
 
 

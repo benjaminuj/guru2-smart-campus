@@ -18,11 +18,10 @@
 
         <TextView
             android:id="@+id/tvProfessor"
-            android:layout_width="30dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginRight="5dp"
-            android:layout_weight="1"
             android:background="@drawable/edge_bottom"
             android:text="교수님성함"
             android:textColor="@color/black"
@@ -30,17 +29,18 @@
 
         <Spinner
             android:id="@+id/spinner"
-            android:layout_width="0dp"
+            android:layout_width="175dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
             android:layout_gravity="center"
             android:layout_marginHorizontal="5dp"/>
 
         <Button
             android:id="@+id/btnclassDate"
-            android:layout_width="0dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:background="@drawable/btn_radius"
+            android:textColor="#FFFFFF"
             android:text="날짜 선택" />
 
     </LinearLayout>
@@ -51,7 +51,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginHorizontal="10dp"
-        android:text="조     회" />
+        android:text="조     회"
+        android:background="@color/blue"
+        android:textColor="#FFFFFF"/>
 
     <LinearLayout
         android:layout_width="match_parent"

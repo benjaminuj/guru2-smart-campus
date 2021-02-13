@@ -4,77 +4,100 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightgray"
+    android:background="@color/black"
     android:theme="@style/ThemeGURU2"
     tools:context=".admin_login_first">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
+
     <Button
-        android:id="@+id/btnLogout"
+        android:elevation="10dp"
+        android:id="@+id/btnAccess"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="50dp"
         android:background="@drawable/btn_radius"
         android:text="출입기록확인"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/black"
         android:textStyle="bold"
+        app:backgroundTint="#99FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAttend" />
+        app:layout_constraintTop_toBottomOf="@+id/btnAttendConfirm"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="160dp"
-        android:layout_height="140dp"
-        android:layout_marginTop="100dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView6"
+        android:layout_width="230dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/whitesmartcampus"
+        app:layout_constraintBottom_toTopOf="@+id/tvId"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/symbol" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:elevation="10dp"
         android:id="@+id/btnCard"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:background="@drawable/btn_radius"
-        android:text="리   더   기"
-        android:textColor="#FFFFFF"
+        android:text="리    더    기"
+        android:textColor="@color/black"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/btnAttend"
-        app:layout_constraintEnd_toEndOf="@+id/btnLogout"
+        app:backgroundTint="#99FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/btnAttendConfirm"
+        app:layout_constraintEnd_toEndOf="@+id/btnAccess"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/btnLogout"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+        app:layout_constraintStart_toStartOf="@+id/btnAccess"
+        app:layout_constraintTop_toBottomOf="@+id/tvId" />
 
     <Button
-        android:id="@+id/btnAttend"
+        android:elevation="10dp"
+        android:id="@+id/btnAttendConfirm"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/btn_radius"
         android:text="출  결  확  인"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/black"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/btnLogout"
-        app:layout_constraintEnd_toEndOf="@+id/btnLogout"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/btnLogout"
+        app:backgroundTint="#99FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/btnAccess"
+        app:layout_constraintEnd_toEndOf="@+id/btnAccess"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/btnAccess"
         app:layout_constraintTop_toBottomOf="@+id/btnCard" />
 
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="150dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="50dp"
+    <TextView
+
+        android:id="@+id/tvId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="- 관리자 페이지 -"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/btnCard"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:srcCompat="@drawable/symbol_letter" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

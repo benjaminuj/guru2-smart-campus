@@ -66,7 +66,7 @@ class attend_confirm : AppCompatActivity() {
         var getName = intent.getStringExtra("getName").toString()
 
         // 텍스트뷰 글자 설정(교수님 성함)
-        tvProfessor.setText(getName+"교수")
+        tvProfessor.setText(getName+" 교수")
 
         // DB 클래스 객체 생성
         myHelper = DBHelper(this)
