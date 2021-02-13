@@ -19,13 +19,13 @@ class admin_login_first : AppCompatActivity() { ////////관리자 로그인 첫 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_login_first)
         btnReader = findViewById(R.id.btnCard) //리더기 버튼
-        btnAttend = findViewById(R.id.btnPay) //출결확인 버튼
-        btnRecord = findViewById(R.id.btnLogout)
-        var getId = intent.getStringExtra("getId").toString()      ////로그인 창에서 보낸 변수 받기
+        btnAttend = findViewById(R.id.btnAttend) //출결확인 버튼
+        btnRecord = findViewById(R.id.btnLogout) //출입기록확인 버튼
+
+         ////보낸 정보 받기
         var getAuth = intent.getStringExtra("getAuth").toString()
         var getName = intent.getStringExtra("getName").toString()
-        var getDepart = intent.getStringExtra("getDepart").toString()
-        var getMajor = intent.getStringExtra("getMajor").toString()
+
 
 
 
@@ -42,6 +42,7 @@ class admin_login_first : AppCompatActivity() { ////////관리자 로그인 첫 
             }else {
                 var intent = Intent(this, attend_confirm::class.java)
                 intent.putExtra("getName", getName)
+                intent.putExtra("getAuth", getAuth)
                 startActivity(intent)
             }
 
@@ -51,7 +52,12 @@ class admin_login_first : AppCompatActivity() { ////////관리자 로그인 첫 
 
         ////////출입기록 버튼
         btnRecord.setOnClickListener {
-            if(getAuth =="1"){   //권한이 1(학생회)이면 권한없음 대화상자
+            if(getAuth =="3"){   //권한이 3이면 출입기록 확인 페이지로 아니면 권한없음
+                var intent = Intent(this, access_record::class.java)
+                intent.putExtra("getName", getName)
+                intent.putExtra("getAuth", getAuth)
+                startActivity(intent)
+            }else {
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle("알림!")
                 builder.setMessage("출입 기록 확인 권한이 없습니다.")
@@ -59,18 +65,18 @@ class admin_login_first : AppCompatActivity() { ////////관리자 로그인 첫 
                 builder.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
                 })
                 builder.show()
-            }else {
-                var intent = Intent(this, access_record::class.java)
-                startActivity(intent)
+
+
             }
 
 
         }
 
-
         ///////////리더기 버튼
         btnReader.setOnClickListener {
             var intent = Intent(this, nfc_reader::class.java)
+            intent.putExtra("getName", getName)
+            intent.putExtra("getAuth", getAuth)
             startActivity(intent)
 
         }

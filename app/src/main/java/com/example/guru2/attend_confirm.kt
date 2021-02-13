@@ -1,6 +1,7 @@
 package com.example.guru2
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.icu.text.SimpleDateFormat
@@ -203,6 +204,12 @@ class attend_confirm : AppCompatActivity() {
                     idResult2.setText(strId)
                     majorResult2.setText(strMajor)
 
+                    // 테두리 생성
+                    timeResult2.setBackgroundResource(R.drawable.edge_right)
+                    nameResult2.setBackgroundResource(R.drawable.edge_right)
+                    idResult2.setBackgroundResource(R.drawable.edge_right)
+                    majorResult2.setBackgroundResource(R.color.white)
+
                     cursor3.close()
                     sqlDB.close()
 
@@ -230,4 +237,12 @@ class attend_confirm : AppCompatActivity() {
 
     }
 
+    override fun onBackPressed() { //뒤로가기 시 관리자 로그인 첫페이지로 & 정보 상실 방지
+        var getAuth = intent.getStringExtra("getAuth").toString()
+        var getName = intent.getStringExtra("getName").toString()
+        val intent = Intent(this,admin_login_first::class.java)
+        intent.putExtra("getAuth", getAuth)
+        intent.putExtra("getName", getName)
+        startActivity(intent)
+    }
 }

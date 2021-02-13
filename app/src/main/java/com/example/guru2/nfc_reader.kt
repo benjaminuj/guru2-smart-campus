@@ -1,5 +1,6 @@
 package com.example.guru2
-import android.app.Activity
+
+
 import android.content.DialogInterface
 import android.content.Intent
 import android.nfc.NdefMessage
@@ -8,6 +9,7 @@ import android.nfc.NfcAdapter
 import android.nfc.NfcEvent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -87,7 +89,7 @@ class nfc_reader : AppCompatActivity(), NfcAdapter.CreateNdefMessageCallback {
         }
     }
 
-    private fun processIntent(intent: Intent) { //nfc로 받아온 메시지를 readId에 저장
+    private fun processIntent(intent: Intent) { //ndef메시지로 받아온 내용를 readId에 저장
         intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)?.also { rawMsgs ->
             (rawMsgs[0] as NdefMessage).apply {
                 readId=String(records[0].payload)
@@ -98,12 +100,17 @@ class nfc_reader : AppCompatActivity(), NfcAdapter.CreateNdefMessageCallback {
         }
     }
 
-    override fun onBackPressed() { //뒤로가기 시 관리자 로그인 첫페이지로
+    override fun onBackPressed() { //뒤로가기 시 관리자 로그인 첫페이지로 & 정보 상실 방지
+        var getAuth = intent.getStringExtra("getAuth").toString()
+        var getName = intent.getStringExtra("getName").toString()
         val intent = Intent(this,admin_login_first::class.java)
+        intent.putExtra("getAuth", getAuth)
+        intent.putExtra("getName", getName)
         startActivity(intent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.admin_login_first,menu)
 
         //액션바 커스터마이징 허용
         supportActionBar?.setDisplayShowCustomEnabled(true)
@@ -117,6 +124,17 @@ class nfc_reader : AppCompatActivity(), NfcAdapter.CreateNdefMessageCallback {
         supportActionBar?.customView=actionView
         return true
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item?.itemId) {
+            R.id.Logout -> { // 로그아웃 선택 시
+                val intent = Intent(this, MainActivity::class.java) // 로그인 화면으로 이동
+                startActivity(intent)
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 

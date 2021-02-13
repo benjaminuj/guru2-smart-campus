@@ -83,6 +83,12 @@ class access_record : AppCompatActivity() {
             spotResult.setText(strSpot)
             idReslt.setText(strId)
 
+            // 테두리 생성
+            dateResult.setBackgroundResource(R.drawable.edge_right)
+            timeResult.setBackgroundResource(R.drawable.edge_right)
+            spotResult.setBackgroundResource(R.drawable.edge_right)
+            idReslt.setBackgroundResource(R.color.white)
+
             cursor.close()
             sqlDB.close()
 
@@ -93,7 +99,7 @@ class access_record : AppCompatActivity() {
     // 메뉴 생성
     @SuppressLint("InflateParams")
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.access_record_menu, menu)
+        menuInflater.inflate(R.menu.admin_login_first, menu)
 
             //액션바 커스터마이징 허용
             supportActionBar?.setDisplayShowCustomEnabled(true)
@@ -120,6 +126,16 @@ class access_record : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onBackPressed() { //뒤로가기 시 관리자 로그인 첫페이지로 & 정보 상실 방지
+        var getAuth = intent.getStringExtra("getAuth").toString()
+        var getName = intent.getStringExtra("getName").toString()
+        val intent = Intent(this,admin_login_first::class.java)
+        intent.putExtra("getAuth", getAuth)
+        intent.putExtra("getName", getName)
+        startActivity(intent)
+    }
+
 
 }
 

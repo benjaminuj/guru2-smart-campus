@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="MainActivity">
+    android:theme="@style/ThemeGURU2"
+    tools:context="MainActivity"
+    android:background="@color/lightgray">
 
     <LinearLayout
         android:layout_marginHorizontal="10dp"
@@ -16,14 +18,15 @@
 
         <TextView
             android:id="@+id/tvProfessor"
-            android:layout_width="0dp"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
-            android:text="교수님성함"
-            android:layout_weight="1"
-            android:textSize="20dp"
             android:layout_gravity="center"
             android:layout_marginRight="5dp"
-            android:textColor="@color/black"/>
+            android:layout_weight="1"
+            android:background="@drawable/edge_bottom"
+            android:text="교수님성함"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
 
         <Spinner
             android:id="@+id/spinner"
@@ -48,38 +51,47 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginHorizontal="10dp"
-        android:text="조회" />
+        android:text="조     회" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginHorizontal="10dp"
-        android:paddingVertical="10dp">
+        android:paddingVertical="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/edge_bottom">
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="시간"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            android:textAlignment="center" />
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.1"
+            android:layout_weight="1"
             android:text="이름"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:background="@drawable/edge_left"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.9"
-            android:text="학번"
-            android:textSize="20dp"/>
+            android:text="학 번"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:background="@drawable/edge_left"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2.6"
-            android:text="학과"
-            android:textSize="20dp"/>
+            android:text="학 과"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:background="@drawable/edge_left"/>
     </LinearLayout>
 
     <ScrollView
@@ -90,7 +102,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="20dp">
 
             <TextView
                 android:id="@+id/timeResult2"
@@ -98,15 +111,17 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:textSize="18dp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:paddingLeft="5dp"/>
 
             <TextView
                 android:id="@+id/nameResult2"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1.1"
+                android:layout_weight="1"
                 android:textSize="18dp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:paddingLeft="5dp"/>
 
             <TextView
                 android:id="@+id/idResult2"
@@ -114,7 +129,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1.9"
                 android:textSize="18dp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:paddingLeft="6dp"/>
 
             <TextView
                 android:id="@+id/majorResult2"
@@ -122,7 +138,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2.6"
                 android:textSize="18dp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:paddingLeft="5dp"/>
         </LinearLayout>
 
 
